@@ -1,6 +1,8 @@
 import py_cui
+import platform
 
 from ui.windows import LocalPlayerWindow
+from util.system import SystemInfo
 
 class App:
 
@@ -9,14 +11,11 @@ class App:
     def __init__(self,root):
         self.root=root
 
+        #Added elements
+        self.status_bar=self.root.status_bar
         self.menu=self.root.add_scroll_menu("Select a Window",1,1)
-        self.menu.add_item_list(self.windows_options)
-        self.menu.add_key_command(py_cui.keys.KEY_ENTER,self._set_widget_set)
 
-        self._config()
-
-    def _config(self):
-        self.root.set_title("Terminal Music Player")
+        self.__config()
 
     def _set_widget_set(self):
         option_index=self.menu.get_selected_item_index()
@@ -25,6 +24,21 @@ class App:
             self.root.apply_widget_set(window)
         elif option_index==1:
             self.root.show_message_popup("On development","This function is on development")
+
+    def _set_status_text(self):
+        if SystemInfo.on_wsl:
+            return "WSL"
+        else:
+            return platform.system()
+
+    def __config(self):
+        self.menu.add_item_list(self.windows_options)
+        self.menu.add_key_command(py_cui.keys.KEY_ENTER,self._set_widget_set)
+
+        self.status_bar.set_color(py_cui.BLACK_ON_GREEN)
+
+        self.root.set_title("Terminal Music Player")
+        self.root.set_status_bar_text("You're using: {} |q-Quit|Arrow keys to move|Enter - Focus mode".format(self._set_status_text()))
 
 if __name__ == "__main__":
     root=py_cui.PyCUI(3,3)
