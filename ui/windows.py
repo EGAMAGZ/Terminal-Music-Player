@@ -1,12 +1,14 @@
+import py_cui
+
 class LocalPlayerWindow:
 
-    _colums:int = 4
-    _rows:int = 3
+    _colums:int = 3
+    _rows:int = 4
 
     def __init__(self,root):
 
         self.root = root
-        self.window=self.root.create_new_widget_set(self._colums,self._rows)
+        self.window=self.root.create_new_widget_set(self._rows,self._colums)
 
         self._config()
     
