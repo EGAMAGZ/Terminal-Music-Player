@@ -25,8 +25,8 @@ class App:
         elif option_index==1:
             self.root.show_message_popup("On development","This function is on development")
 
-    def _set_status_text(self):
-        if SystemInfo.on_wsl:
+    def _set_status_text(self) -> str:
+        if SystemInfo.on_wsl():
             return "WSL"
         else:
             return platform.system()

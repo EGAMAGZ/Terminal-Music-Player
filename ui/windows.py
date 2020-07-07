@@ -10,9 +10,13 @@ class LocalPlayerWindow:
         self.root = root
         self.window=self.root.create_new_widget_set(self._rows,self._colums)
 
-        self._config()
+        #Added elements
+        self.status_bar=self.root.status_bar
+
+        self.__config()
     
-    def _config(self):
+    def __config(self):
+        self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
         self.root.set_title("Local Music Player")
 
     def create(self):
