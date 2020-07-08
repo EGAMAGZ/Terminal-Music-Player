@@ -2,7 +2,7 @@ import py_cui
 import platform
 
 from ui.windows import LocalPlayerWindow
-from util.system import SystemInfo
+from util.system import on_wsl
 
 class App:
 
@@ -26,7 +26,7 @@ class App:
             self.root.show_message_popup("On development","This function is on development")
 
     def _set_status_text(self) -> str:
-        if SystemInfo.on_wsl():
+        if on_wsl():
             return "WSL"
         else:
             return platform.system()
