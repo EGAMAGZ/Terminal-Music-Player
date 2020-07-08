@@ -11,7 +11,7 @@ class App:
     def __init__(self,root):
         self.root=root
 
-        #Added elements
+        #Added widgets
         self.status_bar=self.root.status_bar
         self.menu=self.root.add_scroll_menu("Select a Window",1,1)
 
@@ -36,7 +36,6 @@ class App:
         self.menu.add_key_command(py_cui.keys.KEY_ENTER,self._set_widget_set)
 
         self.status_bar.set_color(py_cui.BLACK_ON_GREEN)
-
         self.root.set_title("Terminal Music Player")
         self.root.set_status_bar_text("You're using: {} |q-Quit|Arrow keys to move|Enter - Focus mode".format(self._set_status_text()))
 
