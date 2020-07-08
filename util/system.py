@@ -12,8 +12,8 @@ def on_wsl() -> bool:
         isOnWSL=True
     return isOnWSL
 
-def getPlatformName() -> str:
+def get_platform_name() -> str:
     return platform.system().lower()
 
-def getUsername() -> str:
+def get_user_name() -> str:
     return getpass.getuser()
