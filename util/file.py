@@ -9,12 +9,12 @@ class File:
     def __init__(self):
         self.platform_name=get_platform_name()
         self.user_name=get_user_name()
+        self.file_path=self.__get_default_path()
+
+    def set_file_path(self,file_path:str):
+        self.file_path=file_path
 
     def get_file_path(self,file_path=None) -> str:
-        if file_path is None:
-            self.file_path=self.__get_default_path()
-        else:
-            self.file_path=file_path
         return self.file_path
 
     def __get_default_path(self) -> str:
@@ -25,6 +25,7 @@ class File:
                 file_path="C:\\Users\\{}\\Music".format(self.user_name)
         else:
             file_path="/mnt/c/Users/{}/Music".format(self.user_name)
+
         return file_path
 
     def get_music_list(self):
