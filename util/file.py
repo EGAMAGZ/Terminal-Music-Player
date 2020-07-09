@@ -43,5 +43,10 @@ class File:
         return songs_list
 
     def get_music_list(self) -> List[SongFile]:
+        songs_file_list=[]
         songs_list=self._get_songs_file()
-        print(songs_list)
+
+        for song in songs_list:
+            songs_file_list.append(SongFile(self._file_path,song))
+        
+        return songs_file_list
