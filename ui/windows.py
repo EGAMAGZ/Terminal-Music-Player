@@ -19,11 +19,12 @@ class LocalPlayerWindow:
         self.song_info=self.window.add_block_label("Sample",0,2,row_span=2,column_span=3,center=False)
         self.song_list=self.window.add_scroll_menu("Songs list",3,2,row_span=3,column_span=3)
         self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
-        
+
         self.__config()
 
     def _on_change_path(self,new_path:str):
         self._file.set_file_path(new_path)
+
 
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
