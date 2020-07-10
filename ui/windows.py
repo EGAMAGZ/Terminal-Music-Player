@@ -2,6 +2,7 @@ import os
 import py_cui
 from typing import List
 
+from ui.labels import SongInfoBlockLabel
 from util.file import File
 from music import SongFile
 
@@ -20,7 +21,7 @@ class LocalPlayerWindow:
 
         #Added widgets
         self.status_bar=self.root.status_bar
-        self.song_info=self.window.add_block_label("Sample",0,2,row_span=2,column_span=3,center=False)
+        self.song_info=SongInfoBlockLabel(self.window)
         self.song_list=self.window.add_scroll_menu("Songs list",3,2,row_span=3,column_span=3)
         self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
 
@@ -41,17 +42,15 @@ class LocalPlayerWindow:
             self._show_popup_file_path()
 
     def __load_songs(self):
-        #FIXME: When is selected a path without must clear the song_list
         self._song_files=self._file.get_music_list()
-
-        songs_name_list=[song.get_name() for song in self._song_files]
-        
-        self.song_list.add_item_list(songs_name_list)
+        if self._song_files: #List is not Empty
+            songs_name_list=[song.get_name() for song in self._song_files]
+            self.song_list.add_item_list(songs_name_list)
+        else:   #List is empty
+            self.song_list.clear()
 
     def __config(self):
         self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
-        self.song_info.set_color(py_cui.BLACK_ON_WHITE)
-        # self.song_list.set_color(py_cui.BLACK_ON_WHITE)
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
 
