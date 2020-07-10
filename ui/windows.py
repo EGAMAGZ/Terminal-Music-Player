@@ -2,11 +2,12 @@ import os
 import py_cui
 from typing import List
 
-from music import SongFile
 from util.file import File
+from music import SongFile
+from music.player import MusicPlayer
 from ui.labels import SongInfoBlockLabel
 
-class LocalPlayerWindow:
+class LocalPlayerWindow(MusicPlayer):
 
     _colums:int = 5
     _rows:int = 7
@@ -14,6 +15,7 @@ class LocalPlayerWindow:
     _songs_file:List[SongFile]
 
     def __init__(self,root):
+        super().__init__()
 
         self.root = root
         self.window=self.root.create_new_widget_set(self._rows,self._colums)
@@ -35,7 +37,9 @@ class LocalPlayerWindow:
     def _on_select_song(self):
         index=self.song_list.get_selected_item_index()
         song_file=self._songs_file[index]
-        self.song_info.set_song_info(song_file)
+        # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
+        self.set_song(song_file)
+
 
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
