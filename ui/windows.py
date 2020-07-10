@@ -2,16 +2,16 @@ import os
 import py_cui
 from typing import List
 
-from ui.labels import SongInfoBlockLabel
-from util.file import File
 from music import SongFile
+from util.file import File
+from ui.labels import SongInfoBlockLabel
 
 class LocalPlayerWindow:
 
     _colums:int = 5
     _rows:int = 7
     _file:File
-    _song_files:List[SongFile]
+    _songs_file:List[SongFile]
 
     def __init__(self,root):
 
@@ -32,6 +32,11 @@ class LocalPlayerWindow:
         self._file.set_file_path(new_path)
         self.__load_songs()
 
+    def _on_select_song(self):
+        index=self.song_list.get_selected_item_index()
+        song_file=self._songs_file[index]
+        self.song_info.set_song_info(song_file)
+
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
 
@@ -42,9 +47,9 @@ class LocalPlayerWindow:
             self._show_popup_file_path()
 
     def __load_songs(self):
-        self._song_files=self._file.get_music_list()
-        if self._song_files: #List is not Empty
-            songs_name_list=[song.get_name() for song in self._song_files]
+        self._songs_file=self._file.get_music_list()
+        if self._songs_file: #List is not Empty
+            songs_name_list=[song.get_name() for song in self._songs_file]
             self.song_list.add_item_list(songs_name_list)
         else:   #List is empty
             self.song_list.clear()
@@ -53,6 +58,7 @@ class LocalPlayerWindow:
         self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
+        self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self._on_select_song)
 
         self.root.set_title("Local Music Player")
 

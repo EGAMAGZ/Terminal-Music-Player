@@ -1,5 +1,7 @@
 import py_cui
 
+from music import SongFile
+
 class SongInfoBlockLabel:
 
     _row:int=0
@@ -18,7 +20,7 @@ class SongInfoBlockLabel:
     def _initial_state(self):
         pass
 
-    def set_song(self):
+    def set_song_info(self,song_file:SongFile):
         pass
 
     def __config(self):
