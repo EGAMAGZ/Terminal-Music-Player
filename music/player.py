@@ -11,11 +11,12 @@ class MusicPlayer:
     _playing:bool = False
     _queue_songs:List[SongFile]=[]
 
-    def __init__(self):
+    def __init__(self,menu_widget):
         #Initialize pygame
         mixer.init()
+        self.song_queue=menu_widget
 
-    def set_song(self,song_file:SongFile):
+    def add_song(self,song_file:SongFile):
         if not self._queue_songs:
             self._playing=True
             self._song_file=song_file
@@ -24,6 +25,7 @@ class MusicPlayer:
 
         if not any(song.get_file_path()==song_file.get_file_path() for song in self._queue_songs):
             self._queue_songs.append(song_file)
+            self.song_queue.add_item(song_file.get_name())
 
     def is_playing(self) -> bool:
         return mixer.music.get_busy()

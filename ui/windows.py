@@ -15,7 +15,6 @@ class LocalPlayerWindow(MusicPlayer):
     _songs_file:List[SongFile]
 
     def __init__(self,root):
-        super().__init__()
 
         self.root = root
         self.window=self.root.create_new_widget_set(self._rows,self._colums)
@@ -26,9 +25,13 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_info=SongInfoBlockLabel(self.window)
         self.song_list=self.window.add_scroll_menu("Songs list",3,2,row_span=3,column_span=3)
         self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
+        self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=3,column_span=2)
 
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
+
+        #Init of class MusicPlayer, that will initialiaze pygame.mixer
+        super().__init__(self.song_queue)
 
     def _on_change_path(self,new_path:str):
         self._file.set_file_path(new_path)
@@ -38,7 +41,7 @@ class LocalPlayerWindow(MusicPlayer):
         index=self.song_list.get_selected_item_index()
         song_file=self._songs_file[index]
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
-        self.set_song(song_file)
+        self.add_song(song_file)
 
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
@@ -58,6 +61,7 @@ class LocalPlayerWindow(MusicPlayer):
             self.song_list.clear()
 
     def __config(self):
+        #TODO: Add a popup to confirm to quit when there is a song playing
         self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
