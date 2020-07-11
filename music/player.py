@@ -7,11 +7,12 @@ from music import SongFile
 # https://www.thecodingpup.com/post_detailed/music-player-in-python
 class MusicPlayer:
 
+    FADE_OUT_TIME:int = 500
     _song_file:SongFile = None
     _playing:bool = False
     _queue_songs:List[SongFile] = []
     _song_index:int = 0
-    FADE_OUT_TIME:int = 500
+    _is_paused:bool=False
 
     def __init__(self,menu_widget):
         #Initialize pygame
@@ -35,6 +36,14 @@ class MusicPlayer:
             mixer.music.fadeout(self.FADE_OUT_TIME)
             mixer.music.load(self._queue_songs[index].get_file_path())
             mixer.music.play()
+
+    def pause(self):
+        if self._is_paused:
+            self._is_paused=False
+            mixer.music.unpause()
+        else:
+            self._is_paused=True
+            mixer.music.pause()
 
     def is_playing(self) -> bool:
         return mixer.music.get_busy()

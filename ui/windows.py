@@ -69,6 +69,8 @@ class LocalPlayerWindow(MusicPlayer):
         self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
+        self.window.add_key_command(py_cui.keys.KEY_SPACE,self.pause)
+
         self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self._on_select_song)
         self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self._on_play_song)
 

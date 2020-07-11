@@ -39,7 +39,10 @@ class App:
         self.root.set_title("Terminal Music Player")
         self.root.set_status_bar_text("You're using: {} |q-Quit|Arrow keys to move|Enter - Focus mode".format(self._set_status_text()))
 
-if __name__ == "__main__":
+def main():
     root=py_cui.PyCUI(3,3)
     wrapper=App(root)
     root.start()
+
+if __name__ == "__main__":
+    main()
