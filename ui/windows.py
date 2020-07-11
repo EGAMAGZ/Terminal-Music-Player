@@ -27,7 +27,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_list=self.window.add_scroll_menu("Songs list",3,2,row_span=3,column_span=3)
         self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
 
-        self.__load_songs()
+        self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
 
     def _on_change_path(self,new_path:str):
@@ -39,7 +39,6 @@ class LocalPlayerWindow(MusicPlayer):
         song_file=self._songs_file[index]
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
         self.set_song(song_file)
-
 
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
