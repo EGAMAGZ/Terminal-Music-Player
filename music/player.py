@@ -21,7 +21,16 @@ class MusicPlayer:
             self._song_file=song_file
             mixer.music.load(self._song_file.get_file_path())
             mixer.music.play()
-        self._queue_songs.append(song_file)
+
+        if not any(song.get_file_path()==song_file.get_file_path() for song in self._queue_songs):
+            self._queue_songs.append(song_file)
 
     def is_playing(self) -> bool:
-        return self._playing
+        return mixer.music.get_busy()
+
+    def stop_song(self):
+        pass
+
+    def stop_song_on_quit(self):
+        mixer.music.unload()
+        mixer.music.stop()
