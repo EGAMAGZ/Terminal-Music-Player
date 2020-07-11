@@ -1,3 +1,3 @@
-# Terminal Music Player
+# pymusicterm
 
-A music player and spotify client for the terminal written in Python
+A music player for the terminal written in Python
