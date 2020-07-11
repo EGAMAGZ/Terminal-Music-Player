@@ -43,6 +43,10 @@ class LocalPlayerWindow(MusicPlayer):
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
         self.add_song(song_file)
 
+    def _on_play_song(self):
+        index=self.song_queue.get_selected_item_index()
+        self.play_song(index)
+
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
 
@@ -66,6 +70,7 @@ class LocalPlayerWindow(MusicPlayer):
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
         self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self._on_select_song)
+        self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self._on_play_song)
 
         self.root.set_title("Local Music Player")
 

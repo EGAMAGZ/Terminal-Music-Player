@@ -9,7 +9,9 @@ class MusicPlayer:
 
     _song_file:SongFile = None
     _playing:bool = False
-    _queue_songs:List[SongFile]=[]
+    _queue_songs:List[SongFile] = []
+    _song_index:int = 0
+    FADE_OUT_TIME:int = 500
 
     def __init__(self,menu_widget):
         #Initialize pygame
@@ -26,6 +28,13 @@ class MusicPlayer:
         if not any(song.get_file_path()==song_file.get_file_path() for song in self._queue_songs):
             self._queue_songs.append(song_file)
             self.song_queue.add_item(song_file.get_name())
+
+    def play_song(self,index:int):
+        if self._song_index != index:
+            self._song_index=index
+            mixer.music.fadeout(self.FADE_OUT_TIME)
+            mixer.music.load(self._queue_songs[index].get_file_path())
+            mixer.music.play()
 
     def is_playing(self) -> bool:
         return mixer.music.get_busy()
