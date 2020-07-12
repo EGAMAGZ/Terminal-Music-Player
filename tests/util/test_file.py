@@ -27,6 +27,13 @@ class TestFile(unittest.TestCase):
         self.assertEqual(file_class.get_file_path(),self.linux_path)
         self.assertNotEqual(file_class.get_file_path(),self.win_path)
         self.assertNotEqual(file_class.get_file_path(),self.wsl_path)
+        del(file_class)
+
+    def tearDown(self):
+        del(self.username)
+        del(self.win_path)
+        del(self.wsl_path)
+        del(self.linux_path)
 
 if __name__ == "__main__":
     unittest.main()
