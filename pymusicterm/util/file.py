@@ -3,7 +3,7 @@ from typing import List
 
 import pymusicterm.music
 from pymusicterm.music import SongFile
-from .system import on_wsl,get_platform_name,get_user_name
+from pymusicterm.util.system import on_wsl,get_platform_name,get_user_name
 
 class File:
 
