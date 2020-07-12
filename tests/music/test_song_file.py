@@ -9,23 +9,29 @@ def join_path(path,file_name) -> str:
 class TestSongFile(unittest.TestCase):
     
     def setUp(self):
-        self.path='C:\\Users\\MyName\Music'
+        self.win_path='C:\\Users\\MyName\Music'
+        self.linux_path='/home/myuser/Music/'
         self.file_name='song.mp3'
-        self.song_file=SongFile(self.path,self.file_name)
+
+        self.win_song_file=SongFile(self.win_path,self.file_name)
+        self.linux_song_file=SongFile(self.linux_path,self.file_name)
 
     def test_get_name(self):
-        self.assertEqual(self.song_file.get_name(),'song')
+        self.assertEqual(self.win_song_file.get_name(),'song')
+        self.assertEqual(self.linux_song_file.get_name(),'song')
 
     def test_get_file_path(self):
-        self.assertEqual(self.song_file.get_file_path(),join_path(self.path,self.file_name))
+        self.assertEqual(self.win_song_file.get_file_path(),join_path(self.win_path,self.file_name))
+        self.assertEqual(self.linux_song_file.get_file_path(),join_path(self.linux_path,self.file_name))
 
     def test_get_path(self):
-        self.assertEqual(self.song_file.get_path(),self.path)
-    
+        self.assertEqual(self.win_song_file.get_path(),self.win_path)
+        self.assertEqual(self.linux_song_file.get_path(),self.linux_path)
+
     def tearDown(self):
-        del(self.path)
+        del(self.win_path)
         del(self.file_name)
-        del(self.song_file)
+        del(self.win_song_file)
 
 if __name__ == "__main__":
     unittest.main()
