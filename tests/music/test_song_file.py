@@ -30,8 +30,11 @@ class TestSongFile(unittest.TestCase):
 
     def tearDown(self):
         del(self.win_path)
+        del(self.linux_path)
         del(self.file_name)
+
         del(self.win_song_file)
+        del(self.linux_song_file)
 
 if __name__ == "__main__":
     unittest.main()
