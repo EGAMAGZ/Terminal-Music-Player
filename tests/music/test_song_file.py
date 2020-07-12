@@ -21,6 +21,11 @@ class TestSongFile(unittest.TestCase):
 
     def test_get_path(self):
         self.assertEqual(self.song_file.get_path(),self.path)
+    
+    def tearDown(self):
+        del(self.path)
+        del(self.file_name)
+        del(self.song_file)
 
 if __name__ == "__main__":
     unittest.main()
