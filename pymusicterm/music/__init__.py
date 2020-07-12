@@ -3,6 +3,11 @@ from dataclasses import dataclass
 
 MUSIC_EXTENSIONS=(".mp3",".wav")
 
+def is_valid_extension(file_name:str):
+    if file_name.endswith(MUSIC_EXTENSIONS):
+        return True
+    return False
+
 @dataclass
 class SongFile:
 

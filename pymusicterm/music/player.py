@@ -3,7 +3,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT']="hide"
 from pygame import mixer
 from typing import List
 
-from music import SongFile
+from pymusicterm.music import SongFile
 # https://www.thecodingpup.com/post_detailed/music-player-in-python
 class MusicPlayer:
 

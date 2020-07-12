@@ -1,8 +1,8 @@
 import py_cui
 import platform
 
-from ui.windows import LocalPlayerWindow
-from util.system import on_wsl
+from pymusicterm.ui.windows import LocalPlayerWindow
+from pymusicterm.util.system import on_wsl
 
 class App:
 

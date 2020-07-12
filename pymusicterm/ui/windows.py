@@ -2,10 +2,10 @@ import os
 import py_cui
 from typing import List
 
-from util.file import File
-from music import SongFile
-from music.player import MusicPlayer
-from ui.labels import SongInfoBlockLabel
+from pymusicterm.util.file import File
+from pymusicterm.music import SongFile
+from pymusicterm.music.player import MusicPlayer
+from pymusicterm.ui.labels import SongInfoBlockLabel
 
 class LocalPlayerWindow(MusicPlayer):
 

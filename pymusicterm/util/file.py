@@ -1,8 +1,7 @@
 import os
 from typing import List
 
-import pymusicterm.music
-from pymusicterm.music import SongFile
+from pymusicterm.music import SongFile,is_valid_extension
 from pymusicterm.util.system import on_wsl,get_platform_name,get_user_name
 
 class File:
@@ -38,7 +37,7 @@ class File:
         files_list=os.listdir(self._file_path)
         for file_name in files_list:
             #TODO: CREATE METHOD TO VALIDATE MUSIC EXTENSION
-            if file_name.endswith(music.MUSIC_EXTENSIONS):
+            if is_valid_extension(file_name):
                 songs_list.append(file_name)
         
         return songs_list

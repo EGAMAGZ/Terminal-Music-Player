@@ -1,6 +1,6 @@
 import py_cui
 
-from music import SongFile
+from pymusicterm.music import SongFile
 
 class SongInfoBlockLabel:
 
