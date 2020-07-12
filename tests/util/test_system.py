@@ -18,7 +18,6 @@ class TestSystem(unittest.TestCase):
     
     def test_get_username(self):
         self.assertEqual(get_user_name(),self.username)
-        self.assertNotEqual(get_user_name(),self.username.lower())
         self.assertNotEqual(get_user_name(),'username')
     
     def tearDown(self):
