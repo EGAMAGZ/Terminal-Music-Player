@@ -37,6 +37,7 @@ class File:
         songs_list=[]
         files_list=os.listdir(self._file_path)
         for file_name in files_list:
+            #TODO: CREATE METHOD TO VALIDATE MUSIC EXTENSION
             if file_name.endswith(music.MUSIC_EXTENSIONS):
                 songs_list.append(file_name)
         

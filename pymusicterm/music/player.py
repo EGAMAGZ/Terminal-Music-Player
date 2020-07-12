@@ -17,7 +17,7 @@ class MusicPlayer:
     def __init__(self,menu_widget):
         #Initialize pygame
         mixer.init()
-        self.song_queue=menu_widget
+        self.song_queue=menu_widget #TODO: REMOVE THIS WIDGET
 
     def add_song(self,song_file:SongFile):
         if not self._queue_songs:
