@@ -1,8 +1,8 @@
 import os
-import music
 from typing import List
-from music import SongFile
 
+import pymusicterm.music
+from pymusicterm.music import SongFile
 from .system import on_wsl,get_platform_name,get_user_name
 
 class File:
@@ -19,7 +19,7 @@ class File:
     def set_file_path(self,file_path:str):
         self._file_path=file_path
 
-    def get_file_path(self,file_path=None) -> str:
+    def get_file_path(self) -> str:
         return self._file_path
 
     def __get_default_path(self) -> str:
