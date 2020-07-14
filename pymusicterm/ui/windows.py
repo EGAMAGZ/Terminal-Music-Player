@@ -15,6 +15,8 @@ class LocalPlayerWindow(MusicPlayer):
     _songs_file:List[SongFile]
 
     def __init__(self,root):
+        #Init of class MusicPlayer, that will initialiaze pygame.mixer
+        super().__init__()
 
         self.root = root
         self.window=self.root.create_new_widget_set(self._rows,self._colums)
@@ -30,9 +32,6 @@ class LocalPlayerWindow(MusicPlayer):
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
 
-        #Init of class MusicPlayer, that will initialiaze pygame.mixer
-        super().__init__(self.song_queue)
-
     def _on_change_path(self,new_path:str):
         self._file.set_file_path(new_path)
         self.__load_songs()
@@ -41,7 +40,9 @@ class LocalPlayerWindow(MusicPlayer):
         index=self.song_list.get_selected_item_index()
         song_file=self._songs_file[index]
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
-        self.add_song(song_file)
+        if self.not_in_queue_songs(song_file):
+            self.song_queue.add_item(song_file.get_name())
+            self.add_song(song_file)
 
     def _on_play_song(self):
         index=self.song_queue.get_selected_item_index()

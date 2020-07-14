@@ -14,10 +14,14 @@ class MusicPlayer:
     _song_index:int = 0
     _is_paused:bool=False
 
-    def __init__(self,menu_widget):
+    def __init__(self):
         #Initialize pygame
         mixer.init()
-        self.song_queue=menu_widget #TODO: REMOVE THIS WIDGET
+
+    def not_in_queue_songs(self,song_file:SongFile) -> bool:
+        if not any(song.get_file_path()==song_file.get_file_path() for song in self._queue_songs):
+            return True
+        return False
 
     def add_song(self,song_file:SongFile):
         if not self._queue_songs:
@@ -26,9 +30,7 @@ class MusicPlayer:
             mixer.music.load(self._song_file.get_file_path())
             mixer.music.play()
 
-        if not any(song.get_file_path()==song_file.get_file_path() for song in self._queue_songs):
-            self._queue_songs.append(song_file)
-            self.song_queue.add_item(song_file.get_name())
+        self._queue_songs.append(song_file)
 
     def play_song(self,index:int):
         if self._song_index != index:
