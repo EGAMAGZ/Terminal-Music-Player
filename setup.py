@@ -12,6 +12,7 @@ setup(
     author="Gamaliel Garcia",
     desciption="A music player and spotify client for a terminal",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url="https://github.com/EGAMAGZ/pymusicterm",
     # license=""
     keyword="git cli cui curses command-line",
