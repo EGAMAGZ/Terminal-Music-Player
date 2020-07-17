@@ -48,6 +48,11 @@ class LocalPlayerWindow(MusicPlayer):
         index=self.song_queue.get_selected_item_index()
         self.play_song(index)
 
+    def _on_remove_queue_song(self):
+        index=self.song_queue.get_selected_item_index()
+        self.song_queue.remove_selected_item()
+        self.remove_song(index)
+
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
 
@@ -74,6 +79,7 @@ class LocalPlayerWindow(MusicPlayer):
 
         self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self._on_select_song)
         self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self._on_play_song)
+        self.song_queue.add_key_command(py_cui.keys.KEY_BACKSPACE,self._on_remove_queue_song)
 
         self.root.set_title("Local Music Player")
 

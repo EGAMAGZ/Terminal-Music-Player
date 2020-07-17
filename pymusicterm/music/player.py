@@ -32,6 +32,15 @@ class MusicPlayer:
 
         self._queue_songs.append(song_file)
 
+    def remove_song(self, index:int):
+        try:
+            if index == self._song_index:
+                pass
+            else:
+                del self._queue_songs[index]
+        except IndexError:
+            pass
+
     def play_song(self,index:int):
         if self._song_index != index:
             self._song_index=index
