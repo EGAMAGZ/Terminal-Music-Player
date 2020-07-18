@@ -61,6 +61,13 @@ class File:
         return file_path
 
     def _get_songs_file(self) -> List[str]:
+        """ Funtion that return a list of song files that have a valid extension
+
+        Returns
+        -------
+        songs_list : List[str]
+            List of valid song files
+        """
         songs_list=[] #List of song files
         files_list=os.listdir(self._file_path) # List of all files found in the file path
         for file_name in files_list:
