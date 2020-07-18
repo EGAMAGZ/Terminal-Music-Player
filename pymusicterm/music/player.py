@@ -76,7 +76,4 @@ class MusicPlayer:
 
     def stop_song(self):
         mixer.music.fadeout(self.FADE_OUT_TIME)
-
-    def stop_song_on_quit(self):
         mixer.music.unload()
-        mixer.music.stop()

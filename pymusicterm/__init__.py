@@ -37,6 +37,7 @@ class App:
 
         self.status_bar.set_color(py_cui.BLACK_ON_GREEN)
         self.root.set_title("Terminal Music Player")
+        self.root.toggle_unicode_borders()
         self.root.set_status_bar_text("You're using: {} |q-Quit|Arrow keys to move|Enter - Focus mode".format(self._set_status_text()))
 
 def main():
