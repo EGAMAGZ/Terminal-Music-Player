@@ -53,6 +53,21 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_queue.remove_selected_item()
         self.remove_song(index)
 
+    def previous_song(self):
+        song_index=self.get_song_index()
+        if  song_index > 0:
+            super().previous_song()
+            song_index=song_index - 1
+        self.song_queue.set_selected_item_index(song_index)
+
+    def next_song(self):
+        song_index=self.get_song_index()
+        if song_index < len(self.get_queue_songs())-1:
+            song_index=song_index + 1
+            super().next_song()
+        self.song_queue.set_selected_item_index(song_index)
+
+
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
 
@@ -76,6 +91,8 @@ class LocalPlayerWindow(MusicPlayer):
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
         self.window.add_key_command(py_cui.keys.KEY_SPACE,self.pause)
+        self.window.add_key_command(py_cui.keys.KEY_P_LOWER,self.previous_song)
+        self.window.add_key_command(py_cui.keys.KEY_N_LOWER,self.next_song)
 
         self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self._on_select_song)
         self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self._on_play_song)

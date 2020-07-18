@@ -48,6 +48,14 @@ class MusicPlayer:
             mixer.music.load(self._queue_songs[index].get_file_path())
             mixer.music.play()
 
+    def previous_song(self):
+        index = self._song_index - 1
+        self.play_song(index)
+
+    def next_song(self):
+        index= self._song_index + 1
+        self.play_song(index)
+
     def pause(self):
         if self._is_paused:
             self._is_paused=False
@@ -59,8 +67,15 @@ class MusicPlayer:
     def is_playing(self) -> bool:
         return mixer.music.get_busy()
 
+    def get_song_index(self) -> int:
+        return self._song_index
+
+    def get_queue_songs(self) -> List[str]:
+        # TODO: Change this method to return the maximum of index
+        return self._queue_songs
+
     def stop_song(self):
-        pass
+        mixer.music.fadeout(self.FADE_OUT_TIME)
 
     def stop_song_on_quit(self):
         mixer.music.unload()
