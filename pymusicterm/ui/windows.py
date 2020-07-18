@@ -15,6 +15,8 @@ class LocalPlayerWindow(MusicPlayer):
     _songs_file:List[SongFile]
 
     def __init__(self,root):
+        """ Constructor for LocalPlayerWindow
+        """
         #Init of class MusicPlayer, that will initialiaze pygame.mixer
         super().__init__()
 
@@ -24,7 +26,11 @@ class LocalPlayerWindow(MusicPlayer):
 
         #Added widgets
         self.status_bar=self.root.status_bar
+
+        #BlockLabels
         self.song_info=SongInfoBlockLabel(self.window)
+
+        #Scroll Menus
         self.song_list=self.window.add_scroll_menu("Songs list",3,2,row_span=3,column_span=3)
         self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
         self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=3,column_span=2)
@@ -41,8 +47,8 @@ class LocalPlayerWindow(MusicPlayer):
         song_file=self._songs_file[index]
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
         if self.not_in_queue_songs(song_file):
-            self.song_queue.add_item(song_file.get_name())
-            self.add_song(song_file)
+            self.song_queue.add_item(song_file.get_name()) #Adds song to the scroll menu
+            self.add_song(song_file) #Method of MusicPLayer class
 
     def _on_play_song(self):
         index=self.song_queue.get_selected_item_index()
@@ -51,7 +57,7 @@ class LocalPlayerWindow(MusicPlayer):
     def _on_remove_queue_song(self):
         index=self.song_queue.get_selected_item_index()
         self.song_queue.remove_selected_item()
-        self.remove_song(index)
+        self.remove_song(index) #Method of MusicPlayer class
 
     def previous_song(self):
         song_index=self.get_song_index()
@@ -71,13 +77,23 @@ class LocalPlayerWindow(MusicPlayer):
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
 
-    def __validate_path(self,path:str) -> None:
+    def __validate_path(self,path:str):
+        """ Function to validate the path
+
+        Parameters
+        ----------
+        path : str
+            Path to search song files
+        """
         if os.path.exists(path):
             self._on_change_path(path)
         else:
+            # Show popup to ask for file path
             self._show_popup_file_path()
 
     def __load_songs(self):
+        """ Function that loads songs
+        """
         self._songs_file=self._file.get_music_list()
         if self._songs_file: #List is not Empty
             songs_name_list=[song.get_name() for song in self._songs_file]
@@ -86,6 +102,8 @@ class LocalPlayerWindow(MusicPlayer):
             self.song_list.clear()
 
     def __config(self):
+        """ Function that configure the widgets of the window (WidgetSet)
+        """
         #TODO: Add a popup to confirm to quit when there is a song playing
         self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
 
@@ -101,4 +119,12 @@ class LocalPlayerWindow(MusicPlayer):
         self.root.set_title("Local Music Player")
 
     def create(self):
+        """ Function that returns a window (a widgetset)
+
+        Returns
+        -------
+        window : WidgetSet
+            Returns a widgetset
+        """
+
         return self.window
