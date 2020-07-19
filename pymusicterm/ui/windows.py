@@ -38,7 +38,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
 
-    def _on_change_path(self,new_path:str):
+    def change_path(self,new_path:str):
         self._file.set_file_path(new_path)
         self.__load_songs()
 
@@ -96,7 +96,7 @@ class LocalPlayerWindow(MusicPlayer):
             Path to search song files
         """
         if os.path.exists(path):
-            self._on_change_path(path)
+            self.change_path(path)
         else:
             # Show popup to ask for file path
             self._show_popup_file_path()
