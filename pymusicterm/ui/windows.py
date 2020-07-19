@@ -42,24 +42,32 @@ class LocalPlayerWindow(MusicPlayer):
         self._file.set_file_path(new_path)
         self.__load_songs()
 
-    def _on_select_song(self):
+    def add_song(self):
+        """Override of base class function. Adds a new song to the queue
+        """
         index=self.song_list.get_selected_item_index()
         song_file=self._songs_file[index]
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
         if self.not_in_queue_songs(song_file):
             self.song_queue.add_item(song_file.get_name()) #Adds song to the scroll menu
-            self.add_song(song_file) #Method of MusicPLayer class
+            super().add_song(song_file) #Method of MusicPLayer class
 
-    def _on_play_song(self):
+    def play_song(self):
+        """Override of base class function. Plays a song in queue songs
+        """
         index=self.song_queue.get_selected_item_index()
-        self.play_song(index)
+        super().play_song(index)
 
-    def _on_remove_queue_song(self):
+    def remove_song(self):
+        """ Override of base class function. Removes song from queue
+        """
         index=self.song_queue.get_selected_item_index()
         self.song_queue.remove_selected_item()
-        self.remove_song(index) #Method of MusicPlayer class
+        super().remove_song(index) #Method of MusicPlayer class
 
     def previous_song(self):
+        """ Override of base class function. Plays previous song in queue
+        """
         song_index=self.get_song_index()
         if  song_index > 0:
             super().previous_song()
@@ -67,6 +75,8 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_queue.set_selected_item_index(song_index)
 
     def next_song(self):
+        """ Override of base class function. Plays next song in queue
+        """
         song_index=self.get_song_index()
         if song_index < len(self.get_queue_songs())-1:
             song_index=song_index + 1
@@ -112,9 +122,9 @@ class LocalPlayerWindow(MusicPlayer):
         self.window.add_key_command(py_cui.keys.KEY_P_LOWER,self.previous_song)
         self.window.add_key_command(py_cui.keys.KEY_N_LOWER,self.next_song)
 
-        self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self._on_select_song)
-        self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self._on_play_song)
-        self.song_queue.add_key_command(py_cui.keys.KEY_BACKSPACE,self._on_remove_queue_song)
+        self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self.add_song)
+        self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self.play_song)
+        self.song_queue.add_key_command(py_cui.keys.KEY_BACKSPACE,self.remove_song)
 
         self.root.set_title("Local Music Player")
 

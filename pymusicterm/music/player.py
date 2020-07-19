@@ -57,7 +57,7 @@ class MusicPlayer:
         self._queue_songs.append(song_file) # Song added to queue songs
 
     def remove_song(self, index:int):
-        """ Functions that removes song from queue song
+        """ Removes song from queue
 
         Parameters
         ----------
@@ -88,15 +88,19 @@ class MusicPlayer:
             mixer.music.play()
 
     def previous_song(self):
+        """ Plays previous song in queue
+        """
         index = self._song_index - 1
         self.play_song(index)
 
     def next_song(self):
+        """ Plays next song in queue
+        """
         index= self._song_index + 1
         self.play_song(index)
 
     def pause(self):
-        """ Function that pauses the song playing
+        """ Pauses the song playing
         """
         if self._is_paused:
             self._is_paused=False
@@ -116,7 +120,10 @@ class MusicPlayer:
         return mixer.music.get_busy()
 
     def get_song_index(self) -> int:
+        """ 
+        """
         return self._song_index
+
     def stop_song(self):
         """ Function that stops actual song
         """
