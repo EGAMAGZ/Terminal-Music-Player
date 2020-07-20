@@ -56,7 +56,7 @@ class LocalPlayerWindow(MusicPlayer):
             super().add_song(song_file) # Method of MusicPLayer class
 
     def play(self):
-        """Override of base class function. Plays a song in queue songs
+        """Plays a song in queue songs
         """
         index=self.song_queue.get_selected_item_index()
         self.play_song(index) # Method of MusicPlayer class
