@@ -55,11 +55,11 @@ class LocalPlayerWindow(MusicPlayer):
             self.song_queue.add_item(song_file.get_name()) #Adds song to the scroll menu
             super().add_song(song_file) # Method of MusicPLayer class
 
-    def play_song(self):
+    def play(self):
         """Override of base class function. Plays a song in queue songs
         """
         index=self.song_queue.get_selected_item_index()
-        super().play_song(index) # Method of MusicPlayer class
+        self.play_song(index) # Method of MusicPlayer class
 
     def pause_song(self):
         """ Override of base class function. Pauses the song playing and change
@@ -139,7 +139,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.window.add_key_command(py_cui.keys.KEY_N_LOWER,self.next_song)
 
         self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self.add_song)
-        self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self.play_song)
+        self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self.play)
         self.song_queue.add_key_command(py_cui.keys.KEY_BACKSPACE,self.remove_song)
 
         self.root.set_title("Local Music Player")

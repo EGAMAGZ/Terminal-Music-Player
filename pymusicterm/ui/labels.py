@@ -1,6 +1,7 @@
 import py_cui
 
 from pymusicterm.music import SongFile
+from pymusicterm.util.file import File
 
 class SongInfoBlockLabel:
 
@@ -12,17 +13,22 @@ class SongInfoBlockLabel:
 
     def __init__(self,window):
         self.window=window
-        self.block_label=self.window.add_block_label("Sample",self._row,self._column,
+        self.block_label=self.window.add_block_label(self._initial_text(),self._row,self._column,
         row_span=self._row_span,column_span=self._column_span,center=self._center)
 
         self.__config()
 
-    def _initial_state(self):
-        pass
+    def _initial_text(self):
+        file_path=File().get_file_path()
+        text=""" Actual path: {}
+        No Song Selected
+        """.format(file_path)
+        return text
 
     def set_song_info(self,song_file:SongFile):
         pass
 
     def __config(self):
-        self._initial_state()
+        """ Function that configure the widget
+        """
         self.block_label.set_color(py_cui.BLACK_ON_WHITE)
