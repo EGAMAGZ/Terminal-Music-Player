@@ -14,14 +14,14 @@ class MusicPlayer:
 
     FADE_OUT_TIME:int = 500
     _song_file:SongFile = None
-    _playing:bool = False
     _queue_songs:List[SongFile] = []
     _song_index:int = 0
     paused:bool=False
 
     def __init__(self):
-        #Initialize pygame
-        mixer.init()
+        """ Constructor for MusicPLayer
+        """
+        mixer.init() #Initialize pygame
 
     def not_in_queue_songs(self,song_file:SongFile) -> bool:
         """Fuction to check if a SongFile that's added already exists in queue songs
@@ -49,7 +49,6 @@ class MusicPlayer:
             Dataclass where the info of the song file
         """
         if not self._queue_songs:
-            self._playing=True
             self._song_file=song_file # Sets actual SongFile playing
             mixer.music.load(self._song_file.get_file_path()) # Loads the song and play it automatically
             mixer.music.play()
