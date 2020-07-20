@@ -11,7 +11,7 @@ class App:
     windows_options=["Local Player","Soon.."]
 
     def __init__(self,root):
-        """ Constructor for 
+        """ Constructor for App class
         """
         self.root=root
 

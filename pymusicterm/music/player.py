@@ -17,7 +17,7 @@ class MusicPlayer:
     _playing:bool = False
     _queue_songs:List[SongFile] = []
     _song_index:int = 0
-    _is_paused:bool=False
+    paused:bool=False
 
     def __init__(self):
         #Initialize pygame
@@ -99,14 +99,14 @@ class MusicPlayer:
         index= self._song_index + 1
         self.play_song(index)
 
-    def pause(self):
+    def pause_song(self):
         """ Pauses the song playing
         """
-        if self._is_paused:
-            self._is_paused=False
+        if self.paused:
+            self.paused=False
             mixer.music.unpause()
         else:
-            self._is_paused=True
+            self.paused=True
             mixer.music.pause()
 
     def is_playing(self) -> bool:

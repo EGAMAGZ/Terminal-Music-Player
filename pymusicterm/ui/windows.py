@@ -26,6 +26,7 @@ class LocalPlayerWindow(MusicPlayer):
 
         #Added widgets
         self.status_bar=self.root.status_bar
+        self.title_bar=self.root.title_bar
 
         #BlockLabels
         self.song_info=SongInfoBlockLabel(self.window)
@@ -39,6 +40,8 @@ class LocalPlayerWindow(MusicPlayer):
         self.__config()
 
     def change_path(self,new_path:str):
+        """ Changes file path to search songs
+        """
         self._file.set_file_path(new_path)
         self.__load_songs()
 
@@ -50,27 +53,40 @@ class LocalPlayerWindow(MusicPlayer):
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
         if self.not_in_queue_songs(song_file):
             self.song_queue.add_item(song_file.get_name()) #Adds song to the scroll menu
-            super().add_song(song_file) #Method of MusicPLayer class
+            super().add_song(song_file) # Method of MusicPLayer class
 
     def play_song(self):
         """Override of base class function. Plays a song in queue songs
         """
         index=self.song_queue.get_selected_item_index()
-        super().play_song(index)
+        super().play_song(index) # Method of MusicPlayer class
+
+    def pause_song(self):
+        """ Override of base class function. Pauses the song playing and change
+            the color of status bar and title bar
+        """
+        if self.is_playing():
+            super().pause_song() # First it paused
+            if self.paused: # Then check if is paused
+                self.status_bar.set_color(py_cui.WHITE_ON_RED)
+                self.title_bar.set_color(py_cui.WHITE_ON_RED)
+            else:
+                self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
+                self.title_bar.set_color(py_cui.BLACK_ON_WHITE)
 
     def remove_song(self):
         """ Override of base class function. Removes song from queue
         """
         index=self.song_queue.get_selected_item_index()
         self.song_queue.remove_selected_item()
-        super().remove_song(index) #Method of MusicPlayer class
+        super().remove_song(index) # Method of MusicPlayer class
 
     def previous_song(self):
         """ Override of base class function. Plays previous song in queue
         """
         song_index=self.get_song_index()
         if  song_index > 0:
-            super().previous_song()
+            super().previous_song() # Method of MusicPlayer class
             song_index=song_index - 1
         self.song_queue.set_selected_item_index(song_index)
 
@@ -80,7 +96,7 @@ class LocalPlayerWindow(MusicPlayer):
         song_index=self.get_song_index()
         if song_index < len(self.get_queue_songs())-1:
             song_index=song_index + 1
-            super().next_song()
+            super().next_song() # Method of MusicPlayer class
         self.song_queue.set_selected_item_index(song_index)
 
 
@@ -118,7 +134,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
-        self.window.add_key_command(py_cui.keys.KEY_SPACE,self.pause)
+        self.window.add_key_command(py_cui.keys.KEY_SPACE,self.pause_song)
         self.window.add_key_command(py_cui.keys.KEY_P_LOWER,self.previous_song)
         self.window.add_key_command(py_cui.keys.KEY_N_LOWER,self.next_song)
 
