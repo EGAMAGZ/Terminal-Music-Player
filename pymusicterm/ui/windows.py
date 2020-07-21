@@ -143,6 +143,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self.add_song)
         self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self.play)
         self.song_queue.add_key_command(py_cui.keys.KEY_BACKSPACE,self.remove_song)
+        self.song_queue.set_focus_text("| Backspace - Remove song | Enter - Play Song")
 
         self.root.set_title("Local Music Player")
 
