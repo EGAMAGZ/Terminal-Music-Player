@@ -6,6 +6,7 @@ from pymusicterm.util.file import File
 from pymusicterm.music import SongFile
 from pymusicterm.music.player import MusicPlayer
 from pymusicterm.ui.labels import SongInfoBlockLabel
+from pymusicterm.ui.menus import LocalPlayerSettingsMenu
 
 class LocalPlayerWindow(MusicPlayer):
 
@@ -33,7 +34,8 @@ class LocalPlayerWindow(MusicPlayer):
 
         #Scroll Menus
         self.song_list=self.window.add_scroll_menu("Songs list",3,2,row_span=3,column_span=3)
-        self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
+        self.settings=LocalPlayerSettingsMenu(self.window,self.root)
+        # self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
         self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=3,column_span=2)
 
         self.__load_songs() #TODO: Modify this method to make it async
