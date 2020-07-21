@@ -18,7 +18,7 @@ class App:
         #Added widgets
         self.status_bar=self.root.status_bar
 
-        self.logo_text_block=self.root.add_block_label(self.get_logo(),0,1)
+        self.logo_text_block=self.root.add_block_label(self._get_logo(),0,1)
 
         #ScrollMenus
         self.menu=self.root.add_scroll_menu("Select a Window",1,1)
@@ -41,14 +41,21 @@ class App:
         else:
             return platform.system()
 
-    def get_logo(self):
-        text="                                   _        _                   \n"
-        text+=" ___  _ _ ._ _ _  _ _  ___<_> ___ _| |_ ___  _ _ ._ _ _\n" 
-        text+="| . \| | || ' ' || | |<_-<| |/ | ' | | / ._>| '_>| ' ' |\n"
-        text+="|  _/`_. ||_|_|_|`___|/__/|_|\_|_. |_| \___.|_|  |_|_|_|\n"
-        text+="|_|  <___'                                              \n" 
+    def _get_logo(self) -> str:
+        """ Generates logo of program
 
-        return text
+        Returns
+        -------
+        logo : str
+            Returns the logo to be place on a widget
+        """
+        logo="                                   _        _                   \n"
+        logo+=" ___  _ _ ._ _ _  _ _  ___<_> ___ _| |_ ___  _ _ ._ _ _\n" 
+        logo+="| . \| | || ' ' || | |<_-<| |/ | ' | | / ._>| '_>| ' ' |\n"
+        logo+="|  _/`_. ||_|_|_|`___|/__/|_|\_|_. |_| \___.|_|  |_|_|_|\n"
+        logo+="|_|  <___'                                              \n" 
+
+        return logo
 
     def __config(self):
         """ Function that configure the widgets of the window
