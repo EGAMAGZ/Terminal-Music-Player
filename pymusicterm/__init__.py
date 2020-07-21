@@ -8,7 +8,7 @@ class App:
     """ Main pymusicterm class. Sets the WidgetSet in the beginning
     """
 
-    windows_options=["Local Player","Soon.."]
+    WINDOWS_OPTIONS=["Local Player","Soon.."]
 
     def __init__(self,root):
         """ Constructor for App class
@@ -60,7 +60,7 @@ class App:
     def __config(self):
         """ Function that configure the widgets of the window
         """
-        self.menu.add_item_list(self.windows_options)
+        self.menu.add_item_list(self.WINDOWS_OPTIONS)
         self.menu.add_key_command(py_cui.keys.KEY_ENTER,self._set_widget_set)
 
         self.logo_text_block.set_color(py_cui.MAGENTA_ON_BLACK)

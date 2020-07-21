@@ -85,6 +85,8 @@ class MusicPlayer:
             mixer.music.fadeout(self.FADE_OUT_TIME) # Fadeout until it stops
             mixer.music.load(self._queue_songs[index].get_file_path()) # Loads the song and play it automatically
             mixer.music.play()
+        else:
+            mixer.music.rewind()
 
     def previous_song(self):
         """ Plays previous song in queue
