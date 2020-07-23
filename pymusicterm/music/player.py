@@ -1,8 +1,8 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT']="hide"
+import threading
 from pygame import mixer
 from typing import List
-import threading
 
 from pymusicterm.music import SongFile
 # https://www.thecodingpup.com/post_detailed/music-player-in-python
@@ -17,8 +17,9 @@ class MusicPlayer:
     _song_file:SongFile = None
     _queue_songs:List[SongFile] = []
     _song_index:int = 0
-    paused:bool=False
     _stopped:bool=False
+    _main_thread:threading.Thread
+    paused:bool=False
 
     def __init__(self):
         """ Constructor for MusicPLayer
@@ -124,21 +125,30 @@ class MusicPlayer:
         return mixer.music.get_busy()
 
     def get_song_index(self) -> int:
-        """ 
+        """ Gets actual index of the list of queue songs
+
+        Returns
+        -------
+        song_index : int
+            Actual index
         """
         return self._song_index
+
+    def get_queue_songs(self) -> List[str]:
+        """ Gets the list of queue songs
+
+        Returns
+        -------
+        queue_songs : List[str]
+            Queue songs
+        """
+        return self._queue_songs
 
     def stop_song(self):
         """ Function that stops actual song
         """
-        pass
-
-    def get_queue_songs(self) -> List[str]:
-        # TODO: Change this method to return the maximum of index
-        return self._queue_songs
-
-    def stop_song(self):
         self._stopped=True
+        self._main_thread.join()
         mixer.music.fadeout(self.FADE_OUT_TIME)
 
     def auto_play(self):
@@ -151,5 +161,5 @@ class MusicPlayer:
             while not self._stopped:
                 self.auto_play()
 
-        main_thread=threading.Thread(target=check_player_thread)
-        main_thread.start()
+        self._main_thread=threading.Thread(target=check_player_thread)
+        self._main_thread.start()
