@@ -1,11 +1,12 @@
 import os
-from typing import List
+import taglib
+from typing import List,Dict
 
 from pymusicterm.music import SongFile,is_valid_extension
 from pymusicterm.util.system import on_wsl,get_platform_name,get_user_name
 
 class File:
-    """ Class resposible to get the list of SongFile dataclasses for the LocalPlayerWindow
+    """ Class responsible to get the list of SongFile dataclasses for the LocalPlayerWindow
 
     This class contains functions that are use to search for song files with valid extensions
     and with them generate lists of SongFile dataclasses that will be used in the window of the
@@ -92,3 +93,87 @@ class File:
             songs_file_list.append(SongFile(self._file_path,song))
 
         return songs_file_list
+
+class FileMetadata:
+    """ Class responsible to get the metadata of a song file
+
+    This class contains functions that returns specific information extracted from
+    the metadata of the song file. Everytime is set a new file path, it automatically
+    extracts the data and stores it in _metadata.
+    """
+    _file_path:str
+    _metadata:Dict[str,List[str]]
+
+    def __init__(self):
+        pass
+
+    def set_file_path(self,file_path:str):
+        """ Sets the path of the file to extract the metadata.
+
+        Parameters
+        ----------
+        file_path : str
+            Path of the song file to extract the metadata
+        """
+        self._file_path=file_path
+        self._metadata=self.__get_metadata()
+
+    def __get_metadata(self) -> Dict[str,List[str]]:
+        """ Gets the metadata of the song file
+
+        Returns
+        -------
+        File : Dict[str,List[str]]
+            Metatada of song file in a dictionary
+        """
+        return taglib.File(self._file_path)
+
+    def get_artist(self) -> List[str]:
+        """ Gets the list of artists from the metadata dictionary
+
+        Returns
+        -------
+        ARTIST : List[str]
+            Artists list
+        """
+        return self._metadata["ARTIST"]
+
+    def get_album(self) -> List[str]:
+        """ Gets the list of albums from the metadata dictionary
+
+        Returns
+        -------
+        ALBUM : List[str]
+            Albums List
+        """
+        return self._metadata["ALBUM"]
+
+    def get_title(self) -> List[str]:
+        """ Gets the list of title from the metadata dictionary
+
+        Returns
+        -------
+        TITLE : List[str]
+            Titles list
+        """
+        return self._metadata["TITLE"]
+
+    def get_genre(self) -> List[str]:
+        """ Gets the list of genres from the metadata dictionary
+
+        Returns
+        -------
+        GENRE : str
+            Genres list
+        """
+        return self._metadata["GENRE"]
+
+    def get_date(self) -> List[str]:
+        """ Gets the list of dates from the metadata dictionary
+
+        Returns
+        -------
+        DATE : str
+            Dates list
+        """
+        return self._metadata["DATE"]

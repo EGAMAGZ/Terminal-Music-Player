@@ -146,6 +146,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_queue.set_focus_text("| Backspace - Remove song | Enter - Play Song")
 
         self.root.set_title("Local Music Player")
+        self.root.run_on_exit(self.stop_song)
 
     def create(self):
         """ Function that returns a window (a widgetset)

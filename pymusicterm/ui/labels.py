@@ -1,7 +1,7 @@
 import py_cui
 
 from pymusicterm.music import SongFile
-from pymusicterm.util.file import File
+from pymusicterm.util.file import File, FileMetadata
 
 class SongInfoBlockLabel:
 
@@ -10,8 +10,9 @@ class SongInfoBlockLabel:
     _row_span:int=2
     _column_span:int=3
     _center:bool=False
+    _file_metadata:FileMetadata
 
-    def __init__(self,window):
+    def __init__(self,window:py_cui.widget_set.WidgetSet):
         self.window=window
         self.block_label=self.window.add_block_label(self._initial_text(),self._row,self._column,
         row_span=self._row_span,column_span=self._column_span,center=self._center)

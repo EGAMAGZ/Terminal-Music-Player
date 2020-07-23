@@ -2,6 +2,7 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT']="hide"
 from pygame import mixer
 from typing import List
+import threading
 
 from pymusicterm.music import SongFile
 # https://www.thecodingpup.com/post_detailed/music-player-in-python
@@ -17,6 +18,7 @@ class MusicPlayer:
     _queue_songs:List[SongFile] = []
     _song_index:int = 0
     paused:bool=False
+    _stopped:bool=False
 
     def __init__(self):
         """ Constructor for MusicPLayer
@@ -52,6 +54,7 @@ class MusicPlayer:
             self._song_file=song_file # Sets actual SongFile playing
             mixer.music.load(self._song_file.get_file_path()) # Loads the song and play it automatically
             mixer.music.play()
+            self._check_player()
 
         self._queue_songs.append(song_file) # Song added to queue songs
 
@@ -135,5 +138,18 @@ class MusicPlayer:
         return self._queue_songs
 
     def stop_song(self):
+        self._stopped=True
         mixer.music.fadeout(self.FADE_OUT_TIME)
-        mixer.music.unload()
+
+    def auto_play(self):
+        if not self.is_playing():
+            if self._song_index < len(self._queue_songs)-1:
+                self.next_song()
+
+    def _check_player(self):
+        def check_player_thread():
+            while not self._stopped:
+                self.auto_play()
+
+        main_thread=threading.Thread(target=check_player_thread)
+        main_thread.start()
