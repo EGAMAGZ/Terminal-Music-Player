@@ -8,7 +8,7 @@ def is_valid_extension(file_name:str):
     return False
 
 class SongFile:
-    """ Class that stores information of a song file
+    """ Class that stv  ores information of a song file
 
     This class with store the path where is found the song and the name
     of the file. And with the functions will return some requested information
