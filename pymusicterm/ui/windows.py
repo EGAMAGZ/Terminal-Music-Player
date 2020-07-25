@@ -2,9 +2,9 @@ import os
 import py_cui
 from typing import List
 
-from pymusicterm.util.file import File
 from pymusicterm.music import SongFile
 from pymusicterm.music.player import MusicPlayer
+from pymusicterm.util.file import File,FileMetadata
 from pymusicterm.ui.labels import SongInfoBlockLabel
 from pymusicterm.ui.menus import LocalPlayerSettingsMenu
 
@@ -14,6 +14,10 @@ class LocalPlayerWindow(MusicPlayer):
     _rows:int = 7
     _file:File
     _songs_file:List[SongFile]
+    _file_metadata:FileMetadata
+
+    window:py_cui.widget_set.WidgetSet
+    root:py_cui.PyCUI
 
     def __init__(self,root):
         """ Constructor for LocalPlayerWindow
@@ -24,6 +28,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.root = root
         self.window=self.root.create_new_widget_set(self._rows,self._colums)
         self._file=File()
+        self._file_metadata=FileMetadata()
 
         #Added widgets
         self.status_bar=self.root.status_bar
@@ -33,7 +38,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_info=SongInfoBlockLabel(self.window)
 
         #Scroll Menus
-        self.song_list=self.window.add_scroll_menu("Songs list",3,2,row_span=3,column_span=3)
+        self.song_list=self.window.add_scroll_menu("Song Files list",3,2,row_span=3,column_span=3)
         self.settings=LocalPlayerSettingsMenu(self.window,self.root)
         # self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
         self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=3,column_span=2)
@@ -54,7 +59,8 @@ class LocalPlayerWindow(MusicPlayer):
         song_file=self._songs_file[index]
         # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
         if self.not_in_queue_songs(song_file):
-            self.song_queue.add_item(song_file.get_name()) #Adds song to the scroll menu
+            self._file_metadata.set_file_path(song_file.get_file_path())
+            self.song_queue.add_item(' '.join(self._file_metadata.get_title())) #Adds song to the scroll menu
             super().add_song(song_file) # Method of MusicPLayer class
 
     def play(self):
@@ -122,6 +128,7 @@ class LocalPlayerWindow(MusicPlayer):
     def __load_songs(self):
         """ Function that loads songs
         """
+        songs_name_list:List[str] = []
         self._songs_file=self._file.get_music_list()
         if self._songs_file: #List is not Empty
             songs_name_list=[song.get_name() for song in self._songs_file]
@@ -148,7 +155,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.root.set_title("Local Music Player")
         self.root.run_on_exit(self.stop_song)
 
-    def create(self):
+    def create(self) -> py_cui.widget_set.WidgetSet:
         """ Function that returns a window (a widgetset)
 
         Returns

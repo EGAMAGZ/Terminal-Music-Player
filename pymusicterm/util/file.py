@@ -126,7 +126,7 @@ class FileMetadata:
         File : Dict[str,List[str]]
             Metatada of song file in a dictionary
         """
-        return taglib.File(self._file_path)
+        return taglib.File(self._file_path).tags
 
     def get_artist(self) -> List[str]:
         """ Gets the list of artists from the metadata dictionary
