@@ -3,7 +3,7 @@ import taglib
 from typing import List,Dict
 
 from pymusicterm.music import SongFile,is_valid_extension
-from pymusicterm.util.system import on_wsl,get_platform_name,get_user_name
+from pymusicterm.util.system import get_platform_name,get_user_name
 
 class File:
     """ Class responsible to get the list of SongFile dataclasses for the LocalPlayerWindow
@@ -50,14 +50,10 @@ class File:
         file_path : str
             Default music path
         """
-        if not on_wsl():
-            # If the user is not in wsl
-            if self._platform_name == "linux":
-                file_path="/home/{}/Music/".format(self._user_name)
-            elif self._platform_name == "windows":
-                file_path="C:\\Users\\{}\\Music".format(self._user_name)
-        else:
-            file_path="/mnt/c/Users/{}/Music".format(self._user_name)
+        if self._platform_name == "linux":
+            file_path="/home/{}/Music/".format(self._user_name)
+        elif self._platform_name == "windows":
+            file_path="C:\\Users\\{}\\Music".format(self._user_name)
 
         return file_path
 
