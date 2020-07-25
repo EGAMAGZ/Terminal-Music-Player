@@ -57,7 +57,9 @@ class MusicPlayer:
         song_file : SongFile
             Dataclass where the info of the song file
         """
+        # TODO: This code can be reduce
         if not self._queue_songs:
+            self._status=self.SONG_PLAYING
             self._song_file=song_file # Sets actual SongFile playing
             mixer.music.load(self._song_file.get_file_path()) # Loads the song and play it automatically
             mixer.music.play()
@@ -90,15 +92,18 @@ class MusicPlayer:
             Index of item in queue songs menu
         """
         # Validate if actual song is playing
-        if self._song_index != index: #Add file path comparison
+        if self._song_index != index: # TODO: Add file path comparison
             self._song_index=index # Sets new index of new song playing
             mixer.music.fadeout(self.FADE_OUT_TIME) # Fadeout until it stops
             mixer.music.load(self._queue_songs[index].get_file_path()) # Loads the song and play it automatically
             mixer.music.play()
         else:
             mixer.music.rewind()
+        if self._status==self.NO_QUEUE_SONGS:
+            # If every song was played, it will restrart the thread and change status
+            self._status=self.SONG_PLAYING
+            self._check_player()
         self._status=self.SONG_PLAYING
-        #TODO: ADD SOME ACTION FORN WHEN THE SONG IS CCHANGING AND PLAYING
 
     def previous_song(self):
         """ Plays previous song in queue
@@ -163,7 +168,11 @@ class MusicPlayer:
         mixer.music.fadeout(self.FADE_OUT_TIME)
 
     def auto_play(self):
+        """ Function that automatically changes the song playing or stops the main_thread
+        """
         max_index=len(self._queue_songs)-1
+
+        #TODO: Handle when queue song list is empty and after the song stopped playing is added a new song
 
         # Will check if is the last song and it stills playing
         if self._song_index == max_index and self._status==self.SONG_PLAYING:
@@ -173,7 +182,11 @@ class MusicPlayer:
             self.next_song()
 
     def _check_player(self):
+        """ Function that starts a thread to change automatically the song
+        """
         def check_player_thread():
+            """ Child function that will be runned in a thread
+            """
             while self._status!=self.PLAYER_STOPPED and self._status!=self.NO_QUEUE_SONGS:
                 if not self.is_playing():
                     self.auto_play()
