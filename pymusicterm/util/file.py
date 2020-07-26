@@ -136,7 +136,10 @@ class FileMetadata:
         ARTIST : List[str]
             Artists list
         """
-        return self._metadata["ARTIST"]
+        try:
+            return self._metadata["ARTIST"]
+        except KeyError:
+            return ["UNKNOWN"]
 
     def get_album(self) -> List[str]:
         """ Gets the list of albums from the metadata dictionary
@@ -146,7 +149,10 @@ class FileMetadata:
         ALBUM : List[str]
             Albums List
         """
-        return self._metadata["ALBUM"]
+        try:
+            return self._metadata["ALBUM"]
+        except KeyError:
+            return ["UNKNOWN"]
 
     def get_title(self) -> List[str]:
         """ Gets the list of title from the metadata dictionary
@@ -171,7 +177,10 @@ class FileMetadata:
         GENRE : str
             Genres list
         """
-        return self._metadata["GENRE"]
+        try:
+            return self._metadata["GENRE"]
+        except KeyError:
+            return ["UNKNOWN"]
 
     def get_date(self) -> List[str]:
         """ Gets the list of dates from the metadata dictionary
@@ -181,4 +190,7 @@ class FileMetadata:
         DATE : str
             Dates list
         """
-        return self._metadata["DATE"]
+        try:
+            return self._metadata["DATE"]
+        except KeyError:
+            return ["UNKNOWN"]
