@@ -161,7 +161,7 @@ class FileMetadata:
         except KeyError:
             file_name=os.path.split(self._file_path)[1]
             name=os.path.splitext(file_name)[0]
-            return [name,]
+            return [name]
 
     def get_genre(self) -> List[str]:
         """ Gets the list of genres from the metadata dictionary

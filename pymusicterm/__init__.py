@@ -18,7 +18,7 @@ class App:
         #Added widgets
         self.status_bar=self.root.status_bar
 
-        self.logo_text_block=self.root.add_block_label(self._get_logo(),0,1)
+        self.logo_text_block=self.root.add_block_label(self._get_logo(),0,0,column_span=3)
 
         #ScrollMenus
         self.menu=self.root.add_scroll_menu("Select a Window",1,1)
