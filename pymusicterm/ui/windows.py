@@ -57,7 +57,7 @@ class LocalPlayerWindow(MusicPlayer):
         """
         index=self.song_list.get_selected_item_index()
         song_file=self._songs_file[index]
-        # self.song_info.set_song_info(song_file) FIXME: In next version py_cui will be fix
+        # self.song_info.set_song_info(song_file) BUG: In next version py_cui will be fix
         if self.not_in_queue_songs(song_file):
             self._file_metadata.set_file_path(song_file.get_file_path())
             self.song_queue.add_item(' '.join(self._file_metadata.get_title())) #Adds song to the scroll menu
