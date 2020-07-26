@@ -5,18 +5,20 @@ from pymusicterm.ui.popups import local_player_help_popup
 
 class LocalPlayerSettingsMenu:
 
-    MENU_OPTIONS:List[str]=[]
+    MENU_OPTIONS:List[str]=["Repeat All","Repeat Once","Shuffle"]
     TITLE:str="Settings"
     ROW:int=3
     COLUMN:int=0
     ROW_SPAN:int=3
     COLUMN_SPAN:int=2
 
-    def __init__(self,window,root):
+    window:py_cui.widget_set.WidgetSet
+
+    def __init__(self,window:py_cui.widget_set.WidgetSet,root):
         self.window=window
         self.root=root
 
-        self.menu=self.window.add_scroll_menu(self.TITLE,self.ROW,self.COLUMN,
+        self.menu=self.window.add_checkbox_menu(self.TITLE,self.ROW,self.COLUMN,
         self.ROW_SPAN,self.COLUMN_SPAN)
 
         self.__config()
