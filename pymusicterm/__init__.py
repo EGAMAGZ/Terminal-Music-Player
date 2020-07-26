@@ -28,8 +28,11 @@ class App:
     def _set_widget_set(self):
         option_index=self.menu.get_selected_item_index()
         if option_index==0:
-            window=LocalPlayerWindow(self.root).create()
-            self.root.apply_widget_set(window)
+            if on_wsl():
+                self.root.show_error_popup("Important","Your system is not supported for this feature")
+            else:
+                window=LocalPlayerWindow(self.root).create()
+                self.root.apply_widget_set(window)
         elif option_index==1:
             self.root.show_message_popup("On development","This function is on development")
 
