@@ -39,9 +39,8 @@ class LocalPlayerWindow(MusicPlayer):
 
         #Scroll Menus
         self.song_list=self.window.add_scroll_menu("Song Files list",3,2,row_span=3,column_span=3)
-        self.settings=LocalPlayerSettingsMenu(self.window,self.root)
-        # self.settings=self.window.add_scroll_menu("Settings",3,0,row_span=3,column_span=2)
-        self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=3,column_span=2)
+        self.settings_menu=LocalPlayerSettingsMenu(self.window).create()
+        self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=4,column_span=2)
 
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
@@ -107,6 +106,14 @@ class LocalPlayerWindow(MusicPlayer):
             super().next_song() # Method of MusicPlayer class
         self.song_queue.set_selected_item_index(song_index)
 
+    def change_settings(self):
+        index=self.settings_menu.get_selected_item_index()
+        if index == 0: # Repeat all
+            pass
+        elif index == 1:
+            pass
+        elif index == 2:
+            pass
 
     def _show_popup_file_path(self):
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
