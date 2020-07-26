@@ -156,7 +156,12 @@ class FileMetadata:
         TITLE : List[str]
             Titles list
         """
-        return self._metadata["TITLE"]
+        try:
+            return self._metadata["TITLE"]
+        except KeyError:
+            file_name=os.path.split(self._file_path)[1]
+            name=os.path.splitext(file_name)[0]
+            return [name,]
 
     def get_genre(self) -> List[str]:
         """ Gets the list of genres from the metadata dictionary
