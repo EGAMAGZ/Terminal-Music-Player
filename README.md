@@ -11,7 +11,7 @@ pip install pymusicterm
 
 You can install it from source. Clone this repository and use `pip` to install:
 ```
-git clone https:
+git clone https://github.com/EGAMAGZ/pymusicterm.git
 cd pymusicterm
 pip install .
 ```
@@ -28,7 +28,7 @@ git pull
 pip install --updgrade .
 ```
 
-> *Note that you may require root acces for installing with `pip` depending on your system's python configuration*
+> Note that you may require root acces for installing with `pip` depending on your system's python configuration
 
 # Demo
 
