@@ -1,8 +1,6 @@
 import py_cui
 from typing import List
 
-from pymusicterm.ui.popups import local_player_help_popup
-
 class LocalPlayerSettingsMenu:
 
     MENU_OPTIONS:List[str]=["Repeat All","Repeat Once","Shuffle"]
