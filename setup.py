@@ -8,7 +8,7 @@ with open('README.md','r') as readme_file:
 
 setup(
     name="pymusicterm",
-    # version=""
+    version="0.1.0",
     author="Gamaliel Garcia",
     desciption="A music player and spotify client for a terminal",
     long_description=long_description,
