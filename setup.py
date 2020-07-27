@@ -10,15 +10,17 @@ setup(
     name="pymusicterm",
     version="0.1.0",
     author="Gamaliel Garcia",
+    # author_email="",
     desciption="A music player and spotify client for a terminal",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/EGAMAGZ/pymusicterm",
-    # license=""
+    license="MIT",
     keyword="git cli cui curses command-line",
     packages=find_packages(exclude=['tests','docs']),
     entry_points={
         'console_scripts':['pymusicterm = pymusicterm:main',]
     },
     install_requires=required_packages,
+    python_requires=">=3.8",
 )
