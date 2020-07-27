@@ -25,7 +25,6 @@ class LocalPlayerSettingsMenu:
     def __config(self):
         self.menu.add_item_list(self.MENU_OPTIONS)
 
-        self.menu.add_key_command(py_cui.keys.KEY_ENTER,self._selected_item)
         self.menu.set_focus_text("|Enter - Enable/Disable setting|")
     
     def create(self) -> py_cui.widgets.CheckBoxMenu:
