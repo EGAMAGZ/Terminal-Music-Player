@@ -10,11 +10,11 @@ from pymusicterm.ui.menus import LocalPlayerSettingsMenu
 
 class LocalPlayerWindow(MusicPlayer):
 
-    _colums:int = 5
-    _rows:int = 7
-    _file:File
     _songs_file:List[SongFile]
     _file_metadata:FileMetadata
+    _file:File
+    _colums:int = 5
+    _rows:int = 7
 
     window:py_cui.widget_set.WidgetSet
     root:py_cui.PyCUI
@@ -110,12 +110,14 @@ class LocalPlayerWindow(MusicPlayer):
         index=self.settings_menu.get_selected_item_index()
         if index == 0: # Repeat all
             pass
-        elif index == 1:
+        elif index == 1: # Repeat Once
             pass
-        elif index == 2:
+        elif index == 2: # Shuffle
             pass
 
     def _show_popup_file_path(self):
+        """ Function that show text box popup to get new file path to search file songs
+        """
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
 
     def __validate_path(self,path:str):
@@ -146,7 +148,6 @@ class LocalPlayerWindow(MusicPlayer):
     def __config(self):
         """ Function that configure the widgets of the window (WidgetSet)
         """
-        #TODO: Add a popup to confirm to quit when there is a song playing
         self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
