@@ -39,8 +39,9 @@ class LocalPlayerWindow(MusicPlayer):
 
         #Scroll Menus
         self.song_list=self.window.add_scroll_menu("Song Files list",3,2,row_span=3,column_span=3)
-        self.settings_menu=LocalPlayerSettingsMenu(self.window).create()
-        self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=4,column_span=2)
+        # self.settings_menu=LocalPlayerSettingsMenu(self.window).create()
+        # self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=4,column_span=2)
+        self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=6,column_span=2)
 
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
