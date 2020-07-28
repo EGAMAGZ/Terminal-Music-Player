@@ -17,10 +17,20 @@ setup(
     url="https://github.com/EGAMAGZ/pymusicterm",
     license="MIT",
     keyword="git cli cui curses command-line",
+    classifiers=[
+        'Intended Audience :: Information Technology',
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Environment :: Console :: Curses',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.8',
+        'Topic :: Multimedia :: Sound/Audio :: Players',
+        'Topic :: Multimedia :: Sound/Audio :: Players :: MP3'
+    ]
     packages=find_packages(exclude=['tests','docs']),
     entry_points={
         'console_scripts':['pymusicterm = pymusicterm:main',]
     },
     install_requires=required_packages,
-    python_requires=">=3.8",
+    python_requires=">=3.8"
 )
