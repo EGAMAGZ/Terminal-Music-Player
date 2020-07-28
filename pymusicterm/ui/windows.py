@@ -50,6 +50,7 @@ class LocalPlayerWindow(MusicPlayer):
         """ Changes file path to search songs
         """
         self._file.set_file_path(new_path)
+        self.song_list.clear()
         self.__load_songs()
 
     def add_song(self):

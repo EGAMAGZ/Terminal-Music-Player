@@ -4,10 +4,10 @@ A music player for the terminal written in Python
 
 # Installation
 
-<!-- To install `pymusicterm`, it is recommended to use pip:
+To install `pymusicterm`, it is recommended to use pip:
 ```
 pip install pymusicterm
-``` -->
+```
 
 You can install it from source. Clone this repository and use `pip` to install:
 ```
@@ -16,10 +16,10 @@ cd pymusicterm
 pip install .
 ```
 
-<!-- If `pymusicterm` is already installed and you would like to update it, use:
+If `pymusicterm` is already installed and you would like to update it, use:
 ```
 pip install --upgrade pymusicterm
-``` -->
+```
 
 If updating local version, use:
 ```
