@@ -4,7 +4,7 @@ import platform
 from pymusicterm.ui.windows import LocalPlayerWindow
 from pymusicterm.util.system import on_wsl
 
-__version__='0.1.0'
+__version__='0.0.1'
 
 class App:
     """ Main pymusicterm class. Sets the WidgetSet in the beginning

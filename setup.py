@@ -8,7 +8,7 @@ with open('README.md','r') as readme_file:
 
 setup(
     name="pymusicterm",
-    version="0.1.0",
+    version="0.0.1",
     author="Gamaliel Garcia",
     author_email="",
     description="A music player and spotify client for a terminal",
@@ -19,7 +19,7 @@ setup(
     keywords="git cli cui curses command-line",
     classifiers=[
         'Intended Audience :: Information Technology',
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'Environment :: Console :: Curses',
         'License :: OSI Approved :: MIT License',
