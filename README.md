@@ -30,7 +30,7 @@ pip install --updgrade .
 
 > Note that you may require root acces for installing with `pip` depending on your system's python configuration
 
-# Demo
+<!-- # Demo -->
 
 # Usage
 Once `pymusicterm` is intsalled. In a command line client type:
