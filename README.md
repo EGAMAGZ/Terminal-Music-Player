@@ -1,5 +1,5 @@
 # pymusicterm
-
+[![PyPI version](https://badge.fury.io/py/pymusic-term.svg)](https://badge.fury.io/py/pymusic-term)
 A music player for the terminal written in Python
 
 # Installation

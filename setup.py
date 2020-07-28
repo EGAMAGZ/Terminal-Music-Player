@@ -7,7 +7,7 @@ with open('README.md','r') as readme_file:
     long_description=readme_file.read()
 
 setup(
-    name="pymusicterm",
+    name="pymusic-term",
     version="0.0.1",
     author="Gamaliel Garcia",
     author_email="",
