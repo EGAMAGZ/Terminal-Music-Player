@@ -112,7 +112,7 @@ class LocalPlayerWindow(MusicPlayer):
         if index == 0: # Repeat all
             pass
         elif index == 1: # Repeat Once
-            pass
+            self.set_repeat()
         elif index == 2: # Shuffle
             pass
 
@@ -156,6 +156,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.window.add_key_command(py_cui.keys.KEY_P_LOWER,self.previous_song)
         self.window.add_key_command(py_cui.keys.KEY_N_LOWER,self.next_song)
 
+        self.settings_menu.add_key_command(py_cui.keys.KEY_ENTER,self.change_settings)
         self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self.add_song)
         self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self.play)
         self.song_queue.add_key_command(py_cui.keys.KEY_BACKSPACE,self.remove_song)
