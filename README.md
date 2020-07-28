@@ -6,7 +6,7 @@ A music player for the terminal written in Python
 
 To install `pymusicterm`, it is recommended to use pip:
 ```
-pip install pymusicterm
+pip install pymusic-term
 ```
 
 You can install it from source. Clone this repository and use `pip` to install:
@@ -18,7 +18,7 @@ pip install .
 
 If `pymusicterm` is already installed and you would like to update it, use:
 ```
-pip install --upgrade pymusicterm
+pip install --upgrade pymusic-term
 ```
 
 If updating local version, use:
