@@ -35,6 +35,8 @@ class MusicPlayer:
         mixer.init() #Initialize pygame
 
     def set_repeat(self):
+        """ Function that set True/False _repeat variable to repeat the song playing
+        """
         self._repeat=not self._repeat
 
     def not_in_queue_songs(self,song_file:SongFile) -> bool:
@@ -81,9 +83,7 @@ class MusicPlayer:
             Index of item in queue songs menu
         """
         try:
-            if index == self._song_index:
-                pass
-            else:
+            if index != self._song_index:
                 del self._queue_songs[index]
         except IndexError:
             pass
@@ -112,6 +112,7 @@ class MusicPlayer:
                 self._status=self.SONG_PLAYING #FIXME: Thread doesn't restart
                 self._check_player()
         else:
+            # Will take the last song selected from the variable _song_file
             mixer.music.load(self._song_file.get_file_path())
             mixer.music.play()
         self._status=self.SONG_PLAYING
@@ -178,7 +179,7 @@ class MusicPlayer:
             self._main_thread.join()
         mixer.music.fadeout(self.FADE_OUT_TIME)
 
-    def auto_play(self):
+    def auto_change(self):
         """ Function that automatically changes the song playing or stops the main_thread
         """
         max_index=len(self._queue_songs)-1
@@ -203,7 +204,7 @@ class MusicPlayer:
             """
             while self._status!=self.PLAYER_STOPPED and self._status!=self.NO_QUEUE_SONGS:
                 if not self.is_playing():
-                    self.auto_play()
+                    self.auto_change()
 
         self._main_thread=threading.Thread(name="Check Player Thread",target=check_player_thread)
         self._main_thread.start()
