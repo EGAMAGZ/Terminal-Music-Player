@@ -56,6 +56,11 @@ class MusicPlayer:
             return True
         return False
 
+    def different_path(self,index:int) -> bool:
+        if self._song_file.get_file_path() != self._queue_songs[index].get_file_path():
+            return True
+        return False
+
     def add_song(self,song_file:SongFile):
         """Adds a SongFile to the queue songs
 
@@ -83,8 +88,7 @@ class MusicPlayer:
             Index of item in queue songs menu
         """
         try:
-            if index != self._song_index:
-                del self._queue_songs[index]
+            del self._queue_songs[index]
         except IndexError:
             pass
 
@@ -98,8 +102,9 @@ class MusicPlayer:
         """
         self._status=self.SONG_CHANGING
         if index is not None:
+            #! This part is supposed to be executed when player is busy
             # Validate if actual song is playing
-            if self._song_index != index: # TODO: Add file path comparison
+            if self.different_path(index):
                 self._song_index=index # Sets new index of new song playing
                 self._song_file=self._queue_songs[index]
                 mixer.music.fadeout(self.FADE_OUT_TIME) # Fadeout until it stops
