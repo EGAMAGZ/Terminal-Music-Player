@@ -123,7 +123,6 @@ class MusicPlayer:
             # Will take the last song selected from the variable _song_file
             mixer.music.load(self._song_file.get_file_path())
             mixer.music.play()
-
         self._status=self.SONG_PLAYING
 
     def previous_song(self):

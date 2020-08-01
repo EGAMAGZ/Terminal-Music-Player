@@ -92,7 +92,8 @@ class LocalPlayerSongsMenu:
         """
         self.window=window
 
-        self.menu=self.window.add_scroll_menu()
+        self.menu=self.window.add_scroll_menu(self.TITLE,self.ROW,self.COLUMN,
+        self.ROW_SPAN,self.COLUMN_SPAN)
         
         self.__config()
 
