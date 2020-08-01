@@ -92,6 +92,9 @@ class MusicPlayer:
         except IndexError:
             pass
 
+    @overload
+    def play_song(self): ...
+
     def play_song(self,index:int=None):
         """ Function that plays a song in queue songs
 
@@ -120,6 +123,7 @@ class MusicPlayer:
             # Will take the last song selected from the variable _song_file
             mixer.music.load(self._song_file.get_file_path())
             mixer.music.play()
+
         self._status=self.SONG_PLAYING
 
     def previous_song(self):
@@ -192,6 +196,7 @@ class MusicPlayer:
     def auto_change(self):
         """ Function that automatically changes the song playing or stops the main_thread
         """
+        #! This part is supposed to be executed when player is not busy
         max_index=len(self._queue_songs)-1
 
         #TODO: Handle when queue song list is empty and after the song stopped playing is added a new song
@@ -201,6 +206,7 @@ class MusicPlayer:
                 self.next_song()
 
             if self._song_index == max_index and self._status==self.SONG_PLAYING:
+                # FIXME: When the last song is executed, this part is executed
                 self._status=self.NO_QUEUE_SONGS
         else:
             # Will replay the song

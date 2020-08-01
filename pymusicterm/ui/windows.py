@@ -6,7 +6,7 @@ from pymusicterm.music import SongFile
 from pymusicterm.music.player import MusicPlayer
 from pymusicterm.util.file import File,FileMetadata
 from pymusicterm.ui.labels import SongInfoBlockLabel
-from pymusicterm.ui.menus import LocalPlayerSettingsMenu
+from pymusicterm.ui.menus import LocalPlayerQueueMenu, LocalPlayerSettingsMenu, LocalPlayerSongsMenu
 
 class LocalPlayerWindow(MusicPlayer):
 
@@ -38,9 +38,9 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_info=SongInfoBlockLabel(self.window)
 
         #Scroll Menus
-        self.song_list=self.window.add_scroll_menu("Song Files list",3,2,row_span=3,column_span=3)
+        self.song_files_menu=LocalPlayerSongsMenu(self.window).create()
         self.settings_menu=LocalPlayerSettingsMenu(self.window).create()
-        self.song_queue=self.window.add_scroll_menu("Songs queue",0,0,row_span=4,column_span=2)
+        self.songs_queue_menu=LocalPlayerQueueMenu(self.window).create()
 
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
@@ -49,24 +49,24 @@ class LocalPlayerWindow(MusicPlayer):
         """ Changes file path to search songs
         """
         self._file.set_file_path(new_path)
-        self.song_list.clear()
+        self.song_files_menu.clear()
         self.__load_songs()
 
     def add_song(self):
         """Override of base class function. Adds a new song to the queue
         """
-        index=self.song_list.get_selected_item_index()
+        index=self.song_files_menu.get_selected_item_index()
         song_file=self._songs_file[index]
         # self.song_info.set_song_info(song_file) BUG: In next version py_cui will be fix
         if self.not_in_queue_songs(song_file):
             self._file_metadata.set_file_path(song_file.get_file_path())
-            self.song_queue.add_item(' '.join(self._file_metadata.get_title())) #Adds song to the scroll menu
+            self.songs_queue_menu.add_item(' '.join(self._file_metadata.get_title())) #Adds song to the scroll menu
             super().add_song(song_file) # Method of MusicPLayer class
 
     def play(self):
         """Plays a song in queue songs
         """
-        index=self.song_queue.get_selected_item_index()
+        index=self.songs_queue_menu.get_selected_item_index()
         self.play_song(index) # Method of MusicPlayer class
 
     def pause_song(self):
@@ -85,8 +85,8 @@ class LocalPlayerWindow(MusicPlayer):
     def remove_song(self):
         """ Override of base class function. Removes song from queue
         """
-        index=self.song_queue.get_selected_item_index()
-        self.song_queue.remove_selected_item()
+        index=self.songs_queue_menu.get_selected_item_index()
+        self.songs_queue_menu.remove_selected_item()
         super().remove_song(index) # Method of MusicPlayer class
 
     def previous_song(self):
@@ -96,7 +96,7 @@ class LocalPlayerWindow(MusicPlayer):
         if  song_index > 0:
             super().previous_song() # Method of MusicPlayer class
             song_index=song_index - 1
-        self.song_queue.set_selected_item_index(song_index)
+        self.songs_queue_menu.set_selected_item_index(song_index)
 
     def next_song(self):
         """ Override of base class function. Plays next song in queue
@@ -109,7 +109,7 @@ class LocalPlayerWindow(MusicPlayer):
         else:
             super().next_song()
 
-        self.song_queue.set_selected_item_index(song_index)
+        self.songs_queue_menu.set_selected_item_index(song_index)
 
     def change_settings(self):
         index=self.settings_menu.get_selected_item_index()
@@ -146,9 +146,9 @@ class LocalPlayerWindow(MusicPlayer):
         self._songs_file=self._file.get_music_list()
         if self._songs_file: #List is not Empty
             songs_name_list=[song.get_name() for song in self._songs_file]
-            self.song_list.add_item_list(songs_name_list)
+            self.song_files_menu.add_item_list(songs_name_list)
         else:   #List is empty
-            self.song_list.clear()
+            self.song_files_menu.clear()
 
     def __config(self):
         """ Function that configure the widgets of the window (WidgetSet)
@@ -161,10 +161,9 @@ class LocalPlayerWindow(MusicPlayer):
         self.window.add_key_command(py_cui.keys.KEY_N_LOWER,self.next_song)
 
         self.settings_menu.add_key_command(py_cui.keys.KEY_ENTER,self.change_settings)
-        self.song_list.add_key_command(py_cui.keys.KEY_ENTER,self.add_song)
-        self.song_queue.add_key_command(py_cui.keys.KEY_ENTER,self.play)
-        self.song_queue.add_key_command(py_cui.keys.KEY_BACKSPACE,self.remove_song)
-        self.song_queue.set_focus_text("| Backspace - Remove song | Enter - Play Song")
+        self.song_files_menu.add_key_command(py_cui.keys.KEY_ENTER,self.add_song)
+        self.songs_queue_menu.add_key_command(py_cui.keys.KEY_ENTER,self.play)
+        self.songs_queue_menu.add_key_command(py_cui.keys.KEY_BACKSPACE,self.remove_song)
 
         self.root.set_title("Local Music Player")
         self.root.run_on_exit(self.stop_song)
