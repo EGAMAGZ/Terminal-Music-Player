@@ -2,7 +2,7 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT']="hide"
 import threading
 from pygame import mixer
-from typing import List
+from typing import List, overload
 
 from pymusicterm.music import SongFile
 # https://www.thecodingpup.com/post_detailed/music-player-in-python
@@ -133,7 +133,12 @@ class MusicPlayer:
         """ Plays next song in queue
         """
         self._status=self.SONG_STOPPED
-        index= self._song_index + 1
+        if self.different_path(self._song_index):
+            # Will the play the song in same index if it has a different path
+            # (Used when a song is deleted but there are other song in queue ahead)
+            index=self._song_index
+        else:
+            index= self._song_index + 1
         self.play_song(index)
 
     def pause_song(self):

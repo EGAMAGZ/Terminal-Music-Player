@@ -102,9 +102,13 @@ class LocalPlayerWindow(MusicPlayer):
         """ Override of base class function. Plays next song in queue
         """
         song_index=self.get_song_index()
-        if song_index < len(self.get_queue_songs())-1:
-            song_index=song_index + 1
-            super().next_song() # Method of MusicPlayer class
+        if not self.different_path(song_index):
+            if song_index < len(self.get_queue_songs())-1:
+                song_index=song_index + 1
+                super().next_song()
+        else:
+            super().next_song()
+
         self.song_queue.set_selected_item_index(song_index)
 
     def change_settings(self):
