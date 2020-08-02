@@ -5,7 +5,7 @@ from py_cui import widget_set
 
 class LocalPlayerSettingsMenu:
 
-    MENU_OPTIONS:List[str]=["Repeat All","Repeat Once","Shuffle"]
+    MENU_OPTIONS:List[str]=["Repeat All","Repeat","Shuffle"]
     TITLE:str="Player Settings"
     ROW:int=4
     COLUMN:int=0

@@ -25,7 +25,7 @@ class MusicPlayer:
     _main_thread:threading.Thread=None
     _song_index:int = 0
     _status:int=None
-    _repeat:bool=False
+    repeat:bool=False
 
     paused:bool=False
 
@@ -35,9 +35,9 @@ class MusicPlayer:
         mixer.init() #Initialize pygame
 
     def set_repeat(self):
-        """ Function that set True/False _repeat variable to repeat the song playing
+        """ Function that set True/False repeat variable to repeat the song playing
         """
-        self._repeat=not self._repeat
+        self.repeat=not self.repeat
 
     def not_in_queue_songs(self,song_file:SongFile) -> bool:
         """Fuction to check if a SongFile that's added already exists in queue songs
@@ -199,7 +199,7 @@ class MusicPlayer:
         max_index=len(self._queue_songs)-1
 
         #TODO: Handle when queue song list is empty and after the song stopped playing is added a new song
-        if not self._repeat:
+        if not self.repeat:
             # Will check if is the last song and it stills playing
             if self._song_index < max_index and self._status != self.SONG_CHANGING: 
                 self.next_song()
@@ -209,7 +209,8 @@ class MusicPlayer:
                 self._status=self.NO_QUEUE_SONGS
         else:
             # Will replay the song
-            self.play_song()
+            if self._status != self.SONG_CHANGING:
+                self.play_song() #FIXME: Error when changing to next song, possible this function and line 114
 
     def _check_player(self):
         """ Function that starts a thread to change automatically the song
