@@ -4,7 +4,7 @@ import platform
 from pymusicterm.ui.windows import LocalPlayerWindow
 from pymusicterm.util.system import on_wsl
 
-__version__='0.0.1'
+__version__='0.0.2'
 
 class App:
     """ Main pymusicterm class. Sets the WidgetSet in the beginning
@@ -71,7 +71,7 @@ class App:
         self.logo_text_block.set_color(py_cui.MAGENTA_ON_BLACK)
 
         self.status_bar.set_color(py_cui.BLACK_ON_GREEN)
-        self.root.set_title("Terminal Music Player")
+        self.root.set_title("pymusicterm - {}".format(__version__))
         self.root.toggle_unicode_borders()
         self.root.set_status_bar_text("You're using: {} |q-Quit|Arrow keys to move|Enter - Focus mode".format(self._set_status_text()))
 

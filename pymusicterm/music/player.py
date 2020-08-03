@@ -63,6 +63,13 @@ class MusicPlayer:
         return False
 
     def different_path(self,index:int) -> bool:
+        """ Function that checks if the song playing has a different file path
+
+        Returns
+        -------
+        different : bool
+            returns if they are different or not
+        """
         if self._song_file.get_file_path() != self._queue_songs[index].get_file_path():
             return True
         return False
@@ -170,7 +177,14 @@ class MusicPlayer:
         """
         return mixer.music.get_busy()
 
-    def is_np_enable(self) -> bool:
+    def is_np_enabled(self) -> bool:
+        """ Checks if the keys n and p can response when they are pressed
+        
+        Returns
+        -------
+        enabled : bool
+            Returns if n and p keys are enable when a song is repeating
+        """
         if self.block_np and self.repeat:
             return False
         return True
