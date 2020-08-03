@@ -117,7 +117,7 @@ class MusicPlayer:
         """
         if self._status==self.NO_QUEUE_SONGS:
             # If every song was played, it will restrart the thread and change status
-            self._status=self.SONG_PLAYING #FIXME: Thread doesn't restart
+            self._status=self.SONG_PLAYING
             self._check_player()
 
         self._status=self.SONG_CHANGING
