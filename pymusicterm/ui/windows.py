@@ -93,22 +93,23 @@ class LocalPlayerWindow(MusicPlayer):
         """ Override of base class function. Plays previous song in queue
         """
         song_index=self.get_song_index()
-        if  song_index > 0:
-            super().previous_song() # Method of MusicPlayer class
-            song_index=song_index - 1
+        if self.is_np_enable():
+            if  song_index > 0:
+                super().previous_song() # Method of MusicPlayer class
+                song_index=song_index - 1
         self.songs_queue_menu.set_selected_item_index(song_index)
 
     def next_song(self):
         """ Override of base class function. Plays next song in queue
         """
         song_index=self.get_song_index()
-        # if not self.repeat and block_np: #TODO: Add option to block n and after
-        if not self.different_path(song_index):
-            if song_index < len(self.get_queue_songs())-1:
-                song_index=song_index + 1
+        if self.is_np_enable():
+            if not self.different_path(song_index):
+                if song_index < len(self.get_queue_songs())-1:
+                    song_index=song_index + 1
+                    super().next_song()
+            else:
                 super().next_song()
-        else:
-            super().next_song()
 
         self.songs_queue_menu.set_selected_item_index(song_index)
 
@@ -120,6 +121,8 @@ class LocalPlayerWindow(MusicPlayer):
             self.set_repeat()
         elif index == 2: # Shuffle
             pass
+        elif index == 3:
+            self.set_block_np()
 
     def _show_popup_file_path(self):
         """ Function that show text box popup to get new file path to search file songs

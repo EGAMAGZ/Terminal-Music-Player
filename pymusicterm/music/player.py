@@ -25,9 +25,10 @@ class MusicPlayer:
     _main_thread:threading.Thread=None
     _song_index:int = 0
     _status:int=None
-    repeat:bool=False
 
+    repeat:bool=False
     paused:bool=False
+    block_np:bool=False
 
     def __init__(self):
         """ Constructor for MusicPLayer
@@ -35,9 +36,14 @@ class MusicPlayer:
         mixer.init() #Initialize pygame
 
     def set_repeat(self):
-        """ Function that set True/False repeat variable to repeat the song playing
+        """ Function that sets True/False repeat variable to repeat the song playing
         """
         self.repeat=not self.repeat
+
+    def set_block_np(self):
+        """ Function that sets True/False block_np variable to block the keys n and p
+        """
+        self.block_np=not self.block_np
 
     def not_in_queue_songs(self,song_file:SongFile) -> bool:
         """Fuction to check if a SongFile that's added already exists in queue songs
@@ -69,7 +75,6 @@ class MusicPlayer:
         song_file : SongFile
             Dataclass where the info of the song file
         """
-        # TODO: This code can be reduce
         if not self._queue_songs:
             self._status=self.SONG_PLAYING
             self._song_file=song_file # Sets actual SongFile playing
@@ -103,6 +108,11 @@ class MusicPlayer:
         index : int
             Index of item in queue songs menu
         """
+        if self._status==self.NO_QUEUE_SONGS:
+            # If every song was played, it will restrart the thread and change status
+            self._status=self.SONG_PLAYING #FIXME: Thread doesn't restart
+            self._check_player()
+
         self._status=self.SONG_CHANGING
         if index is not None:
             #! This part is supposed to be executed when player is busy
@@ -115,10 +125,6 @@ class MusicPlayer:
                 mixer.music.play()
             else:
                 mixer.music.rewind()
-            if self._status==self.NO_QUEUE_SONGS:
-                # If every song was played, it will restrart the thread and change status
-                self._status=self.SONG_PLAYING #FIXME: Thread doesn't restart
-                self._check_player()
         else:
             # Will take the last song selected from the variable _song_file
             mixer.music.load(self._song_file.get_file_path())
@@ -163,6 +169,11 @@ class MusicPlayer:
             Check if the music stream is playing
         """
         return mixer.music.get_busy()
+
+    def is_np_enable(self) -> bool:
+        if self.block_np and self.repeat:
+            return False
+        return True
 
     def get_song_index(self) -> int:
         """ Gets actual index of the list of queue songs
@@ -210,7 +221,7 @@ class MusicPlayer:
         else:
             # Will replay the song
             if self._status != self.SONG_CHANGING:
-                self.play_song() #FIXME: Error when changing to next song, possible this function and line 114
+                self.play_song()
 
     def _check_player(self):
         """ Function that starts a thread to change automatically the song
