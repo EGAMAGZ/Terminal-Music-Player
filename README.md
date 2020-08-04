@@ -1,4 +1,4 @@
-# pymusicterm [![PyPI version](https://badge.fury.io/py/pymusic-term.svg)](https://badge.fury.io/py/pymusic-term)
+# pymusicterm [![PyPI version](https://badge.fury.io/py/pymusic-term.svg)](https://badge.fury.io/py/pymusic-term) [![GitHub version](https://badge.fury.io/gh/EGAMAGZ%2Fpymusicterm.svg)](https://badge.fury.io/gh/EGAMAGZ%2Fpymusicterm)
 A music player for the terminal written in Python
 
 # Installation
