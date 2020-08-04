@@ -105,6 +105,30 @@ class MusicPlayer:
             return True
         return False
 
+    def is_playing(self) -> bool:
+        """ Return the current state of the mixer (if is busy)
+
+        Return
+        ------
+        get_busy : bool
+            Check if the music stream is playing
+        """
+        return mixer.music.get_busy()
+
+    def is_np_enabled(self) -> bool:
+        """ Checks if the keys n and p can response when they are pressed
+        
+        Returns
+        -------
+        enabled : bool
+            Returns if n and p keys are enable when a song is repeating
+        """
+        if self.block_np and self.repeat:
+            return False
+        return True
+
+    # -| Function related with the player |-
+
     def add_song(self,song_file:SongFile):
         """Adds a SongFile to the queue songs
 
@@ -197,28 +221,6 @@ class MusicPlayer:
         else:
             self.paused=True
             mixer.music.pause()
-
-    def is_playing(self) -> bool:
-        """ Return the current state of the mixer (if is busy)
-
-        Return
-        ------
-        get_busy : bool
-            Check if the music stream is playing
-        """
-        return mixer.music.get_busy()
-
-    def is_np_enabled(self) -> bool:
-        """ Checks if the keys n and p can response when they are pressed
-        
-        Returns
-        -------
-        enabled : bool
-            Returns if n and p keys are enable when a song is repeating
-        """
-        if self.block_np and self.repeat:
-            return False
-        return True
 
     def stop_song(self):
         """ Function that stops actual song
