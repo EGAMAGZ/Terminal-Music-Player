@@ -129,6 +129,9 @@ class LocalPlayerWindow(MusicPlayer):
         """
         self.root.show_text_box_popup("Write the path:",self.__validate_path)
 
+    def _show_popup_volume(self):
+        self.root.show_text_box_popup("Set Volume from 0 - 100",self.__validate_volume)
+
     def __validate_path(self,path:str):
         """ Function to validate the path
 
@@ -142,6 +145,12 @@ class LocalPlayerWindow(MusicPlayer):
         else:
             # Show popup to ask for file path
             self._show_popup_file_path()
+
+    def __validate_volume(self,volume:str):
+        if volume.isnumeric() and 0<=int(volume)<=100:
+            self.set_volume(int(volume))
+        else:
+            self._show_popup_volume()
 
     def __load_songs(self):
         """ Function that loads songs
@@ -163,6 +172,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.window.add_key_command(py_cui.keys.KEY_SPACE,self.pause_song)
         self.window.add_key_command(py_cui.keys.KEY_P_LOWER,self.previous_song)
         self.window.add_key_command(py_cui.keys.KEY_N_LOWER,self.next_song)
+        self.window.add_key_command(py_cui.keys.KEY_V_LOWER,self._show_popup_volume)
 
         self.settings_menu.add_key_command(py_cui.keys.KEY_ENTER,self.change_settings)
         self.song_files_menu.add_key_command(py_cui.keys.KEY_ENTER,self.add_song)
@@ -170,6 +180,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.songs_queue_menu.add_key_command(py_cui.keys.KEY_BACKSPACE,self.remove_song)
 
         self.root.set_title("Local Music Player")
+        self.root.set_status_bar_text("|q-Quit|S-Search in path|Space-Pause|Arrow keys to move|Enter-Focus Mode")
         self.root.run_on_exit(self.stop_song)
 
     def create(self) -> py_cui.widget_set.WidgetSet:

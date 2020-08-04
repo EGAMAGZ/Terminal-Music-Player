@@ -45,6 +45,37 @@ class MusicPlayer:
         """
         self.block_np=not self.block_np
 
+    def set_volume(self,volume:int):
+        """ Sets the volume of the player
+        
+        Parameters
+        ----------
+        volume : int
+            Value of volume that will be changed (1-100)
+        """
+        f_volume=volume/100
+        mixer.music.set_volume(f_volume)
+
+    def get_song_index(self) -> int:
+        """ Gets actual index of the list of queue songs
+
+        Returns
+        -------
+        song_index : int
+            Actual index
+        """
+        return self._song_index
+
+    def get_queue_songs(self) -> List[str]:
+        """ Gets the list of queue songs
+
+        Returns
+        -------
+        queue_songs : List[str]
+            Queue songs
+        """
+        return self._queue_songs
+
     def not_in_queue_songs(self,song_file:SongFile) -> bool:
         """Fuction to check if a SongFile that's added already exists in queue songs
 
@@ -188,26 +219,6 @@ class MusicPlayer:
         if self.block_np and self.repeat:
             return False
         return True
-
-    def get_song_index(self) -> int:
-        """ Gets actual index of the list of queue songs
-
-        Returns
-        -------
-        song_index : int
-            Actual index
-        """
-        return self._song_index
-
-    def get_queue_songs(self) -> List[str]:
-        """ Gets the list of queue songs
-
-        Returns
-        -------
-        queue_songs : List[str]
-            Queue songs
-        """
-        return self._queue_songs
 
     def stop_song(self):
         """ Function that stops actual song
