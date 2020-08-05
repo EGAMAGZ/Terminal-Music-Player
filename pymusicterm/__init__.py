@@ -1,5 +1,6 @@
 import py_cui
 import platform
+import argparse
 
 from pymusicterm.ui.windows import LocalPlayerWindow
 from pymusicterm.util.system import on_wsl
@@ -78,6 +79,13 @@ class App:
 def main():
     """ Entry point for pymusicterm and initialize the CUI
     """
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--version',action='version',version=__version__)
+    args=parser.parse_args()
+
     root=py_cui.PyCUI(3,3)
-    wrapper=App(root)
-    root.start()
+    try:
+        wrapper=App(root)
+        root.start()
+    except py_cui.py_cui.errors.PyCUIOutOfBoundsError:
+        print("Your terminal is too small, try increasing it's size")
