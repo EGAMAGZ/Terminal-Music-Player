@@ -1,3 +1,4 @@
+from pymusicterm.ui.progressbar import LoadingBarWidget
 import py_cui
 import platform
 import argparse
@@ -7,13 +8,28 @@ from pymusicterm.util.system import on_wsl
 
 __version__='0.0.2'
 
+class ImpPyCUI(py_cui.PyCUI):
+    
+    def __init__(self,num_rows,num_cols) -> None:
+        super().__init__(num_rows,num_cols)
+
+    def add_progress_bar(self, title, row, column, row_span = 1, column_span = 1, padx = 1, pady = 0) -> LoadingBarWidget:
+        id = 'Widget{}'.format(len(self._widgets.keys()))
+        new_progress_bar=LoadingBarWidget(id,title,self._grid,row,column,row_span,column_span,padx,pady,self._logger)
+
+        self._widgets[id]=new_progress_bar
+        if self._selected_widget is None:
+            self.set_selected_widget(id)
+        self._logger.debug('Adding widget {} w/ ID {} of type {}'.format(title,id,str(type(new_progress_bar))))
+        return new_progress_bar
+
 class App:
     """ Main pymusicterm class. Sets the WidgetSet in the beginning
     """
 
     WINDOWS_OPTIONS=["Local Player","Soon.."]
 
-    def __init__(self,root):
+    def __init__(self,root:ImpPyCUI):
         """ Constructor for App class
         """
         self.root=root
@@ -25,6 +41,7 @@ class App:
 
         #ScrollMenus
         self.menu=self.root.add_scroll_menu("Select a Window",1,1)
+        self.root.add_progress_bar("HELLO",1,0)
 
         self.__config()
 
@@ -83,7 +100,7 @@ def main():
     parser.add_argument('--version',action='version',version=__version__)
     args=parser.parse_args()
 
-    root=py_cui.PyCUI(3,3)
+    root=ImpPyCUI(3,3)
     try:
         wrapper=App(root)
         root.start()
