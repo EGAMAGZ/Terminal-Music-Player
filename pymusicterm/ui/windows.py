@@ -2,6 +2,7 @@ import os
 import py_cui
 from typing import List
 
+import pymusicterm.ui as ui
 from pymusicterm.music import SongFile
 from pymusicterm.music.player import MusicPlayer
 from pymusicterm.util.file import File,FileMetadata
@@ -79,8 +80,8 @@ class LocalPlayerWindow(MusicPlayer):
                 self.status_bar.set_color(py_cui.WHITE_ON_RED)
                 self.title_bar.set_color(py_cui.WHITE_ON_RED)
             else:
-                self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
-                self.title_bar.set_color(py_cui.BLACK_ON_WHITE)
+                self.status_bar.set_color(ui.WHITE_ON_MAGENTA)
+                self.title_bar.set_color(ui.WHITE_ON_MAGENTA)
 
     def remove_song(self):
         """ Override of base class function. Removes song from queue
@@ -166,7 +167,7 @@ class LocalPlayerWindow(MusicPlayer):
     def __config(self):
         """ Function that configure the widgets of the window (WidgetSet)
         """
-        self.status_bar.set_color(py_cui.BLACK_ON_WHITE)
+        self.status_bar.set_color(ui.WHITE_ON_MAGENTA)
 
         self.window.add_key_command(py_cui.keys.KEY_S_LOWER,self._show_popup_file_path)
         self.window.add_key_command(py_cui.keys.KEY_SPACE,self.pause_song)
@@ -182,6 +183,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.root.set_title("Local Music Player")
         self.root.set_status_bar_text("|q-Quit|S-Search in path|Space-Pause|Arrow keys to move|Enter-Focus Mode")
         self.root.run_on_exit(self.stop_song)
+        self.root.title_bar.set_color(ui.WHITE_ON_MAGENTA)
 
     def create(self) -> py_cui.widget_set.WidgetSet:
         """ Function that returns a window (a widgetset)

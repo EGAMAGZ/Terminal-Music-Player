@@ -1,8 +1,10 @@
-from pymusicterm.ui.progressbar import LoadingBarWidget
+import curses
 import py_cui
 import platform
 import argparse
 
+import pymusicterm.ui as ui
+from pymusicterm.ui.progressbar import LoadingBarWidget
 from pymusicterm.ui.windows import LocalPlayerWindow
 from pymusicterm.util.system import on_wsl
 
@@ -22,6 +24,10 @@ class ImpPyCUI(py_cui.PyCUI):
             self.set_selected_widget(id)
         self._logger.debug('Adding widget {} w/ ID {} of type {}'.format(title,id,str(type(new_progress_bar))))
         return new_progress_bar
+
+    def _initialize_colors(self):
+        super()._initialize_colors()
+        curses.init_pair(ui.WHITE_ON_MAGENTA,curses.COLOR_WHITE,curses.COLOR_MAGENTA)
 
 class App:
     """ Main pymusicterm class. Sets the WidgetSet in the beginning
