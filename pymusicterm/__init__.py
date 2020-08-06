@@ -1,4 +1,5 @@
 import curses
+from pymusicterm.ui.widget_set import CustomWidgetSet
 import py_cui
 import platform
 import argparse
@@ -15,6 +16,9 @@ class ImpPyCUI(py_cui.PyCUI):
     def __init__(self,num_rows,num_cols) -> None:
         super().__init__(num_rows,num_cols)
 
+    def create_new_widget_set(self, num_rows, num_cols):
+        return CustomWidgetSet(num_rows,num_cols,self._logger,simulated_terminal=self._simulated_terminal)
+
     def add_progress_bar(self, title, row, column, row_span = 1, column_span = 1, padx = 1, pady = 0) -> LoadingBarWidget:
         id = 'Widget{}'.format(len(self._widgets.keys()))
         new_progress_bar=LoadingBarWidget(id,title,self._grid,row,column,row_span,column_span,padx,pady,self._logger)
@@ -23,6 +27,7 @@ class ImpPyCUI(py_cui.PyCUI):
         if self._selected_widget is None:
             self.set_selected_widget(id)
         self._logger.debug('Adding widget {} w/ ID {} of type {}'.format(title,id,str(type(new_progress_bar))))
+
         return new_progress_bar
 
     def _initialize_colors(self):

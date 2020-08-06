@@ -3,11 +3,13 @@ from py_cui.widgets import Widget
 
 class LoadingBarWidget(Widget):
     
+    BAR_COMPLETED_CHAR=u'\u2588'
+
     def __init__(self,id,title,grid,row,column,row_span,column_span,padx,pady,logger) -> None:
         super().__init__(id,title,grid,row,column,row_span,column_span,padx,pady,logger)
         self._draw_border=True
         self._num_items=10
-        self._completed_items=5
+        self._completed_items=9
 
     def _draw(self):
         super()._draw()
@@ -24,7 +26,7 @@ class LoadingBarWidget(Widget):
 
         non_completed_blocks= bar_width - completed_blocks
 
-        text='{}{}'.format('#'* completed_blocks,'-'*non_completed_blocks)
+        text='{}{}'.format(self.BAR_COMPLETED_CHAR* completed_blocks,'-'*non_completed_blocks)
         self._renderer.set_color_mode(self._color)
 
         if self._draw_border:

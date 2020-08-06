@@ -7,6 +7,7 @@ from pymusicterm.music import SongFile
 from pymusicterm.music.player import MusicPlayer
 from pymusicterm.util.file import File,FileMetadata
 from pymusicterm.ui.labels import SongInfoBlockLabel
+from pymusicterm.ui.widget_set import CustomWidgetSet
 from pymusicterm.ui.menus import LocalPlayerQueueMenu, LocalPlayerSettingsMenu, LocalPlayerSongsMenu
 
 class LocalPlayerWindow(MusicPlayer):
@@ -17,7 +18,7 @@ class LocalPlayerWindow(MusicPlayer):
     _colums:int = 5
     _rows:int = 7
 
-    window:py_cui.widget_set.WidgetSet
+    window:CustomWidgetSet
     root:py_cui.PyCUI
 
     def __init__(self,root):
@@ -42,6 +43,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_files_menu=LocalPlayerSongsMenu(self.window).create()
         self.settings_menu=LocalPlayerSettingsMenu(self.window).create()
         self.songs_queue_menu=LocalPlayerQueueMenu(self.window).create()
+        self.progress_bar=self.window.add_progress_bar("Hola",6,0,column_span=5)
 
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
