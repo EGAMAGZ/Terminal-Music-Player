@@ -44,7 +44,6 @@ class LocalPlayerWindow(MusicPlayer):
         self.settings_menu=LocalPlayerSettingsMenu(self.window).create()
         self.songs_queue_menu=LocalPlayerQueueMenu(self.window).create()
         bar=self.progress_bar=self.window.add_progress_bar(6,0,column_span=5)
-        bar.increment()
 
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()

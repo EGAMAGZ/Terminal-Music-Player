@@ -6,6 +6,8 @@ class LoadingBarWidget(Widget):
     BAR_COMPLETED_CHAR=u'\u2588'
 
     def __init__(self,id,title,grid,row,column,row_span,column_span,padx,pady,logger) -> None:
+        """ Initializer for LoadingBar Widget
+        """
         super().__init__(id,title,grid,row,column,row_span,column_span,padx,pady,logger)
         self._draw_border=True
         self._num_items=10
@@ -20,6 +22,8 @@ class LoadingBarWidget(Widget):
         self._num_items=number_items
 
     def _draw(self):
+        """ Override base draw class.
+        """
         super()._draw()
 
         self._title="{}-{}".format(self._actual_time,self._total_duration)
@@ -41,7 +45,7 @@ class LoadingBarWidget(Widget):
         if self._draw_border:
             self._renderer.draw_border(self,with_title=True)
         target_y=self._start_y+int(self._height/2)
-        # self._renderer.draw_text(self,self._title,target_y,centered=True,bordered=True)
+
         self._renderer.draw_text(self,text,target_y,centered=True,bordered=self._draw_border)
         self._renderer.unset_color_mode(self._color)
         self._renderer.reset_cursor(self)

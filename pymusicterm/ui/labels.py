@@ -33,4 +33,4 @@ class SongInfoBlockLabel:
     def __config(self):
         """ Function that configure the widget
         """
-        self.block_label.set_color(py_cui.BLACK_ON_WHITE)
+        self.block_label._draw_border=True
