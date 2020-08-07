@@ -9,11 +9,20 @@ class LoadingBarWidget(Widget):
         super().__init__(id,title,grid,row,column,row_span,column_span,padx,pady,logger)
         self._draw_border=True
         self._num_items=10
-        self._completed_items=9
+        self._completed_items=0
+        self._total_duration=title
+        self._actual_time=title
+
+    def increment(self):
+        self._completed_items+=1
+
+    def set_num_items(self,number_items):
+        self._num_items=number_items
 
     def _draw(self):
         super()._draw()
 
+        self._title="{}-{}".format(self._actual_time,self._total_duration)
         width=self._stop_x -self._start_x
         bar_width=width
         items_per_bar_block=self._num_items / bar_width
@@ -30,8 +39,9 @@ class LoadingBarWidget(Widget):
         self._renderer.set_color_mode(self._color)
 
         if self._draw_border:
-            self._renderer.draw_border(self,with_title=False)
+            self._renderer.draw_border(self,with_title=True)
         target_y=self._start_y+int(self._height/2)
-        # self._renderer.draw_text(self,self._title,target_y-2,centered=True,bordered=self._draw_border)
+        # self._renderer.draw_text(self,self._title,target_y,centered=True,bordered=True)
         self._renderer.draw_text(self,text,target_y,centered=True,bordered=self._draw_border)
         self._renderer.unset_color_mode(self._color)
+        self._renderer.reset_cursor(self)

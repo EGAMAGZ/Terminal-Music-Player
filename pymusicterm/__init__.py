@@ -19,17 +19,6 @@ class ImpPyCUI(py_cui.PyCUI):
     def create_new_widget_set(self, num_rows, num_cols):
         return CustomWidgetSet(num_rows,num_cols,self._logger,simulated_terminal=self._simulated_terminal)
 
-    def add_progress_bar(self, title, row, column, row_span = 1, column_span = 1, padx = 1, pady = 0) -> LoadingBarWidget:
-        id = 'Widget{}'.format(len(self._widgets.keys()))
-        new_progress_bar=LoadingBarWidget(id,title,self._grid,row,column,row_span,column_span,padx,pady,self._logger)
-
-        self._widgets[id]=new_progress_bar
-        if self._selected_widget is None:
-            self.set_selected_widget(id)
-        self._logger.debug('Adding widget {} w/ ID {} of type {}'.format(title,id,str(type(new_progress_bar))))
-
-        return new_progress_bar
-
     def _initialize_colors(self):
         super()._initialize_colors()
         curses.init_pair(ui.WHITE_ON_MAGENTA,curses.COLOR_WHITE,curses.COLOR_MAGENTA)
@@ -52,7 +41,6 @@ class App:
 
         #ScrollMenus
         self.menu=self.root.add_scroll_menu("Select a Window",1,1)
-        self.root.add_progress_bar("HELLO",1,0)
 
         self.__config()
 
