@@ -13,10 +13,14 @@ class LoadingBarWidget(Widget):
         self._num_items=10
         self._completed_items=0
         self._total_duration=title
-        self._actual_time=title
+        self._time_elapsed=title
 
     def increment(self):
         self._completed_items+=1
+
+    def set_time_elapsed(self,time_elapsed:str):
+        self._time_elapsed=time_elapsed
+
 
     def set_num_items(self,number_items):
         self._num_items=number_items
@@ -26,7 +30,7 @@ class LoadingBarWidget(Widget):
         """
         super()._draw()
 
-        self._title="{}-{}".format(self._actual_time,self._total_duration)
+        self._title="{}-{}".format(self._time_elapsed,self._total_duration)
         width=self._stop_x -self._start_x
         bar_width=width
         items_per_bar_block=self._num_items / bar_width

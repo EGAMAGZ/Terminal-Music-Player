@@ -43,7 +43,7 @@ class LocalPlayerWindow(MusicPlayer):
         self.song_files_menu=LocalPlayerSongsMenu(self.window).create()
         self.settings_menu=LocalPlayerSettingsMenu(self.window).create()
         self.songs_queue_menu=LocalPlayerQueueMenu(self.window).create()
-        bar=self.progress_bar=self.window.add_progress_bar(6,0,column_span=5)
+        self.bar=self.progress_bar=self.window.add_progress_bar(6,0,column_span=5)
 
         self.__load_songs() #TODO: Modify this method to make it async
         self.__config()
@@ -115,6 +115,11 @@ class LocalPlayerWindow(MusicPlayer):
                 super().next_song()
 
         self.songs_queue_menu.set_selected_item_index(song_index)
+
+    def song_time_elapsed(self):
+        minutes,seconds=super().song_time_elapsed()
+        time_elapsed="{}:{}".format(minutes,seconds)
+        self.bar.set_time_elapsed(time_elapsed)
 
     def change_settings(self):
         index=self.settings_menu.get_selected_item_index()
