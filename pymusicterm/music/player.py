@@ -160,15 +160,20 @@ class MusicPlayer:
             pass
 
     @overload
-    def play_song(self): ...
+    def play_song(self) -> str: ... # Function when is replayed the song
 
-    def play_song(self,index:int=None):
+    def play_song(self,index:int=None) -> str:
         """ Function that plays a song in queue songs
 
         Parameters
         ----------
         index : int
             Index of item in queue songs menu
+
+        Returns
+        -------
+        file_path : str
+            File path of the song file
         """
         if self._status==self.NO_QUEUE_SONGS:
             # If every song was played, it will restrart the thread and change status
@@ -192,6 +197,8 @@ class MusicPlayer:
             mixer.music.load(self._song_file.get_file_path())
             mixer.music.play()
         self._status=self.SONG_PLAYING
+
+        return self._song_file.get_file_path()
 
     def previous_song(self):
         """ Plays previous song in queue
@@ -230,6 +237,9 @@ class MusicPlayer:
             self._main_thread.join()
         mixer.music.fadeout(self.FADE_OUT_TIME)
 
+    def song_time_elapsed(self):
+        return mixer.music.get_pos()
+
     def auto_change(self):
         """ Function that automatically changes the song playing or stops the main_thread
         """
@@ -259,6 +269,8 @@ class MusicPlayer:
             while self._status!=self.PLAYER_STOPPED and self._status!=self.NO_QUEUE_SONGS:
                 if not self.is_playing():
                     self.auto_change()
+                else:
+                    self.song_time_elapsed()
 
         self._main_thread=threading.Thread(name="Check Player Thread",target=check_player_thread)
         self._main_thread.start()

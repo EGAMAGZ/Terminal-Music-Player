@@ -66,11 +66,16 @@ class LocalPlayerWindow(MusicPlayer):
             self.songs_queue_menu.add_item(' '.join(self._file_metadata.get_title())) #Adds song to the scroll menu
             super().add_song(song_file) # Method of MusicPLayer class
 
+    def play_song(self, index: int=None) -> str:
+        file_path=super().play_song(index)
+        self._file_metadata.set_file_path(file_path)
+        self.bar.set_total_duration(self._file_metadata.get_length())
+
     def play(self):
         """Plays a song in queue songs
         """
         index=self.songs_queue_menu.get_selected_item_index()
-        self.play_song(index) # Method of MusicPlayer class
+        self.play_song(index)
 
     def pause_song(self):
         """ Override of base class function. Pauses the song playing and change
@@ -117,9 +122,8 @@ class LocalPlayerWindow(MusicPlayer):
         self.songs_queue_menu.set_selected_item_index(song_index)
 
     def song_time_elapsed(self):
-        minutes,seconds=super().song_time_elapsed()
-        time_elapsed="{}:{}".format(minutes,seconds)
-        self.bar.set_time_elapsed(time_elapsed)
+        time_elapsed=super().song_time_elapsed()
+        self.bar.increment_items(time_elapsed)
 
     def change_settings(self):
         index=self.settings_menu.get_selected_item_index()

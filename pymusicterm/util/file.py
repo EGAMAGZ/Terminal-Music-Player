@@ -1,4 +1,6 @@
 import os
+from pymusicterm.util.time import seconds_to_milliseconds
+import mutagen
 import taglib
 from typing import List,Dict
 
@@ -190,3 +192,8 @@ class FileMetadata:
             return self._metadata["DATE"]
         except KeyError:
             return ["UNKNOWN"]
+
+    def get_length(self) -> int:
+        mutagen_metadata=mutagen.File(self._file_path)
+        seconds=mutagen_metadata.info.length
+        return seconds_to_milliseconds(seconds)
