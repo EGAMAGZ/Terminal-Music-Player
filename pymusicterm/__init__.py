@@ -9,7 +9,7 @@ from pymusicterm.ui.progressbar import LoadingBarWidget
 from pymusicterm.ui.windows import LocalPlayerWindow
 from pymusicterm.util.system import on_wsl
 
-__version__='0.0.3'
+__version__='0.0.4'
 
 class ImpPyCUI(py_cui.PyCUI):
     
